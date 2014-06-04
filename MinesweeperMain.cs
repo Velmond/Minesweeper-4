@@ -3,40 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-// testvano e - ba4ka, ne pipaj!!!!!!!
 
-namespace mini4ki
+namespace Minesweeper
 {
-    public class MinesweeperMain
+    public class Minesweeper
     {
-        public class ScoreRecord
-        {
-            string personName;
-            int scorePoints;
-
-            public string PersonName
-            {
-                get { return personName; }
-                set { personName = value; }
-            }
-            public int ScorePoints
-            {
-                get { return scorePoints; 
-				
-				
-				}
-                set { scorePoints = value; }
-            }
-
-            public ScoreRecord() { }
-
-            public ScoreRecord(string personName, int points)
-            {
-                this.personName = personName;
-                this.scorePoints = points;
-            }
-
-        }
 
         static void Main(string[] args)
         {
@@ -46,17 +17,14 @@ namespace mini4ki
             int counter = 0;
             bool boomed = false;
 
-
             List<ScoreRecord> champions = new List<ScoreRecord>(6);
             int rowIndex = 0;
-
-
 
             int columnIndex = 0;
             bool welcomeFlag = true;
             const int MAX_REVEALED_CELLS = 35;
             bool flag = false;
-            
+
             do
             {
                 if (welcomeFlag)
@@ -125,11 +93,11 @@ namespace mini4ki
                 if (boomed)
                 {
                     PrintBoard(boomBoard);
-                    Console.Write("\nBooooom! You were killed by a mine. You revealed {0} cells without mines."+
-                        "Please enter your name for the top scoreboard: ",counter);
+                    Console.Write("\nBooooom! You were killed by a mine. You revealed {0} cells without mines." +
+                        "Please enter your name for the top scoreboard: ", counter);
                     string personName = Console.ReadLine();
                     ScoreRecord record = new ScoreRecord(personName, counter);
-                    if (champions.Count <5)
+                    if (champions.Count < 5)
                     {
                         champions.Add(record);
 
@@ -142,19 +110,19 @@ namespace mini4ki
                             if (champions[i].ScorePoints < record.ScorePoints)
                             {
                                 champions.Insert(i, record);
-                                champions.RemoveAt(champions.Count-1);
+                                champions.RemoveAt(champions.Count - 1);
                                 break;
                             }
                         }
                     }
                     champions.Sort(delegate(ScoreRecord r1, ScoreRecord r2)
                     { return r2.PersonName.CompareTo(r1.PersonName); });
-                    champions.Sort(delegate(ScoreRecord r1,ScoreRecord r2)
-                    {return r2.ScorePoints.CompareTo(r1.ScorePoints);  });
+                    champions.Sort(delegate(ScoreRecord r1, ScoreRecord r2)
+                    { return r2.ScorePoints.CompareTo(r1.ScorePoints); });
                     PrintScoreBoard(champions);
-                    
-					
-					playground = CreateWhiteBoard();
+
+
+                    playground = CreateWhiteBoard();
                     boomBoard = CreateBombBoard();
                     counter = 0;
                     boomed = false;
@@ -175,7 +143,7 @@ namespace mini4ki
                     flag = false;
                     welcomeFlag = true;
                 }
-            } 
+            }
             while (selectedCommand != "exit");
 
 
@@ -199,11 +167,11 @@ namespace mini4ki
                 Console.WriteLine("No records to display!\n");
             }
         }
-        private static void MakeAMove(char[,] board,char[,] boomBoard, int rowIndex, int columnIndex)
+        private static void MakeAMove(char[,] board, char[,] boomBoard, int rowIndex, int columnIndex)
         {
             char howManyBombs = CalculateHowManyBombs(boomBoard, rowIndex, columnIndex);
-            boomBoard[rowIndex, columnIndex] = howManyBombs;
-            board[rowIndex, columnIndex] = howManyBombs;
+            howManyBombs = boomBoard[rowIndex, columnIndex];
+            howManyBombs = board[rowIndex, columnIndex];
         }
         private static void PrintBoard(char[,] board)
         {
@@ -216,7 +184,7 @@ namespace mini4ki
                 Console.Write("{0} | ", i);
                 for (int j = 0; j < boardColumns; j++)
                 {
-                    Console.Write(string.Format("{0} ",board[i, j]));
+                    Console.Write(string.Format("{0} ", board[i, j]));
                 }
                 Console.Write("|");
                 Console.WriteLine();
@@ -232,14 +200,11 @@ namespace mini4ki
             {
                 for (int j = 0; j < boardColumns; j++)
                 {
-                    board[i,j] = '?';
+                    board[i, j] = '?';
                 }
             }
 
             return board;
-
-
-
         }
 
         private static char[,] CreateBombBoard()
@@ -253,9 +218,6 @@ namespace mini4ki
                 for (int j = 0; j < boardColumns; j++)
                 {
                     board[i, j] = '-';
-
-
-
                 }
             }
 
@@ -279,15 +241,12 @@ namespace mini4ki
                     row--;
                     column = boardColumns;
                 }
-
-
                 else
                 {
                     column++;
                 }
-                board[row,column-1] = '*';
+                board[row, column - 1] = '*';
             }
-
             return board;
         }
 
@@ -300,14 +259,12 @@ namespace mini4ki
             {
                 for (int j = 0; j < boardColumns; j++)
                 {
-                    if (board[i,j] != '*')
+                    if (board[i, j] != '*')
                     {
                         char number = CalculateHowManyBombs(board, i, j);
                         board[i, j] = number;
                     }
                 }
-
-
             }
         }
 
@@ -320,47 +277,58 @@ namespace mini4ki
             if (rowIndex - 1 >= 0)
             {
                 if (board[rowIndex - 1, columnIndex] == '*')
-                { counted++; }
+                {
+                    counted++;
+                }
             }
             if (rowIndex + 1 < boardRows)
             {
                 if (board[rowIndex + 1, columnIndex] == '*')
-                { counted++; }
-
-
-
+                { 
+                    counted++;
+                }
             }
             if (columnIndex - 1 >= 0)
             {
                 if (board[rowIndex, columnIndex - 1] == '*')
-                { counted++; }
+                { 
+                    counted++;
+                }
             }
             if (columnIndex + 1 < boardColumns)
             {
                 if (board[rowIndex, columnIndex + 1] == '*')
-                { counted++; }
+                {
+                    counted++;
+                }
             }
             if ((rowIndex - 1 >= 0) && (columnIndex - 1 >= 0))
             {
                 if (board[rowIndex - 1, columnIndex - 1] == '*')
-                { counted++; }
+                {
+                    counted++;
+                }
             }
             if ((rowIndex - 1 >= 0) && (columnIndex + 1 < boardColumns))
             {
                 if (board[rowIndex - 1, columnIndex + 1] == '*')
-                { counted++; }
+                {
+                    counted++;
+                }
             }
             if ((rowIndex + 1 < boardRows) && (columnIndex - 1 >= 0))
             {
                 if (board[rowIndex + 1, columnIndex - 1] == '*')
-                { counted++; }
+                {
+                    counted++;
+                }
             }
             if ((rowIndex + 1 < boardRows) && (columnIndex + 1 < boardColumns))
             {
                 if (board[rowIndex + 1, columnIndex + 1] == '*')
-                { counted++; }
-
-
+                {
+                    counted++;
+                }
             }
             return char.Parse(counted.ToString());
         }

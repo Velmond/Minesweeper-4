@@ -3,3 +3,8 @@ D:\Velmond\School\Telerik\06. High-Quality Programming Code\Teamwork - Team Mine
 D:\Velmond\School\Telerik\06. High-Quality Programming Code\Teamwork - Team Minesweeper-4\Minesweeper\Minesweeper\Minesweeper-4\obj\Debug\Minesweeper.csprojResolveAssemblyReference.cache
 D:\Velmond\School\Telerik\06. High-Quality Programming Code\Teamwork - Team Minesweeper-4\Minesweeper\Minesweeper\Minesweeper-4\obj\Debug\Minesweeper.exe
 D:\Velmond\School\Telerik\06. High-Quality Programming Code\Teamwork - Team Minesweeper-4\Minesweeper\Minesweeper\Minesweeper-4\obj\Debug\Minesweeper.pdb
+E:\КПК\obj\Debug\Minesweeper.exe
+E:\КПК\obj\Debug\Minesweeper.pdb
+E:\КПК\obj\Debug\Minesweeper.csprojResolveAssemblyReference.cache
+E:\КПК\bin\Debug\Minesweeper.exe
+E:\КПК\bin\Debug\Minesweeper.pdb
