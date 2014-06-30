@@ -67,7 +67,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MinesweeperMain.cs" />
+    <Compile Include="GameField.cs" />
+    <Compile Include="MinesweeperGame.cs" />
+    <Compile Include="Position.cs" />
+    <Compile Include="ScoreBoard.cs" />
     <Compile Include="ScoreRecord.cs" />
   </ItemGroup>
   <ItemGroup>

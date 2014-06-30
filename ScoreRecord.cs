@@ -1,36 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Minesweeper
+﻿namespace Minesweeper
 {
     public class ScoreRecord
     {
-        string personName;
-        int scorePoints;
+        private string playerName;
+        private int playerScore;
 
-        public string PersonName
+        public ScoreRecord(string playerName, int score)
         {
-            get { return personName; }
-            set { personName = value; }
-        }
-        public int ScorePoints
-        {
-            get
-            {
-                return scorePoints;
-            }
-            set { scorePoints = value; }
+            this.PlayerName = playerName;
+            this.PlayerScore = score;
         }
 
-        public ScoreRecord() { }
-
-        public ScoreRecord(string personName, int points)
+        public string PlayerName
         {
-            this.personName = personName;
-            this.scorePoints = points;
+            get { return this.playerName; }
+            set { this.playerName = value; }
         }
 
+        public int PlayerScore
+        {
+            get { return this.playerScore; }
+            set { this.playerScore = value; }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} --> {1}", this.PlayerName, this.PlayerScore);
+        }
     }
 }
