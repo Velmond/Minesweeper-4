@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine.cs" />
     <Compile Include="GameField.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Position.cs" />
