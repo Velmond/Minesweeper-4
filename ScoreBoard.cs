@@ -6,49 +6,69 @@
     public class ScoreBoard
     {
         private const int MaxNumberOfEntries = 6;
-        private IList<ScoreRecord> highScores;
+        private IList<IScoreRecord> highScores;
 
+        /// <summary>
+        /// Default constructor which provides List<ScoreRecord> as a collection.
+        /// </summary>
         public ScoreBoard()
+            : this(new List<IScoreRecord>(MaxNumberOfEntries))
         {
-            this.HighScores = new List<ScoreRecord>(MaxNumberOfEntries);
         }
 
-        public IList<ScoreRecord> HighScores
+        /// <summary>
+        /// Optional consutructor allowing a specific highScores collection type.
+        /// </summary>
+        /// <param name="collection">highScores collection. Must be of type IList<ScoreRecord></param>
+        public ScoreBoard(IList<IScoreRecord> collection)
+        {
+            this.HighScores = collection;
+        }
+
+        public IList<IScoreRecord> HighScores
         {
             get { return this.highScores; }
             set { this.highScores = value; }
         }
 
-        public void AddScore(ScoreRecord currentScore)
+        /// <summary>
+        /// Clears all current high scores kept in IList<ScoreRecord> highScores.
+        /// </summary>
+        public void Reset()
         {
+            this.HighScores.Clear();
+        }
+
+        /// <summary>
+        /// Checks whether the given score record meets the requirements in order to be added to the ScoreBoard
+        /// </summary>
+        /// <param name="currentScore">The current score result</param>
+        public void AddScore(IScoreRecord currentScore)
+        {
+            int lastHighScoreId = this.HighScores.Count - 1;
+            
+            // If there aren't any high score, the current score is added directly.
             if (this.HighScores.Count == 0)
             {
                 this.HighScores.Add(currentScore);
             }
-            else if (this.HighScores.Count < MaxNumberOfEntries ||
-                currentScore.PlayerScore > this.HighScores[this.HighScores.Count - 1].PlayerScore)
+            else if (currentScore.PlayerScore > this.HighScores[lastHighScoreId].PlayerScore) // removed: (this.HighScores.Count < MaxNumberOfEntries)
             {
                 for (int i = 0; i < this.HighScores.Count; i++)
                 {
-                    if (this.HighScores[i].PlayerScore < currentScore.PlayerScore)
+                    IScoreRecord iterationScore = this.HighScores[i];
+
+                    if (iterationScore.PlayerScore < currentScore.PlayerScore)
                     {
                         this.HighScores.Insert(i, currentScore);
                         break;
                     }
-                    else if (this.HighScores[i].PlayerScore == currentScore.PlayerScore)
+                    else if (iterationScore.PlayerScore == currentScore.PlayerScore)
                     {
-                        if (this.HighScores[i].PlayerName.CompareTo(currentScore.PlayerName) > 0)
-                        {
-                            this.HighScores.Insert(i, currentScore);
-                        }
-                        else
-                        {
-                            this.HighScores.Insert(i + 1, currentScore);
-                        }
-
+                        this.SortEqualHighScores(iterationScore, currentScore, i);
                         break;
                     }
-                    else if (i == this.HighScores.Count - 1)
+                    else if (i == lastHighScoreId)
                     {
                         this.HighScores.Add(currentScore);
                         break;
@@ -62,27 +82,49 @@
             }
         }
 
+        /// <summary>
+        /// Generates a string representation of the score board.
+        /// </summary>
+        /// <returns>Returns a string with all the scores</returns>
         public override string ToString()
         {
-            StringBuilder toString = new StringBuilder();
+            StringBuilder output = new StringBuilder();
 
-            toString.AppendLine("Scoreboard:");
+            output.AppendLine("Scoreboard:");
 
             if (this.HighScores.Count > 0)
             {
                 for (int i = 0; i < this.HighScores.Count; i++)
                 {
-                    toString.AppendLine(string.Format("{0}. {1} cells", i + 1, this.HighScores[i].ToString()));
+                    output.AppendLine(string.Format("{0}. {1} cells", i + 1, this.HighScores[i].ToString()));
                 }
 
-                toString.AppendLine();
+                output.AppendLine();
             }
             else
             {
-                toString.AppendLine("No records to display!");
+                output.AppendLine("No records to display!");
             }
 
-            return toString.ToString();
+            return output.ToString();
+        }
+
+        /// <summary>
+        /// Sorts two equal high scores by their holders' names.
+        /// </summary>
+        /// <param name="iterationScore">Comparer score</param>
+        /// <param name="currentScore">The current player score</param>
+        /// <param name="index">Index of the comparer score</param>
+        private void SortEqualHighScores(IScoreRecord iterationScore, IScoreRecord currentScore, int index)
+        {
+            if (iterationScore.PlayerName.CompareTo(currentScore.PlayerName) > 0)
+            {
+                this.HighScores.Insert(index, currentScore);
+            }
+            else
+            {
+                this.HighScores.Insert(index + 1, currentScore);
+            }
         }
     }
 }

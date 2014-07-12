@@ -69,6 +69,8 @@
   <ItemGroup>
     <Compile Include="Engine.cs" />
     <Compile Include="GameField.cs" />
+    <Compile Include="IPosition.cs" />
+    <Compile Include="IScoreRecord.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="ScoreBoard.cs" />
@@ -93,6 +95,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassStructure.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

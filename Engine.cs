@@ -1,19 +1,16 @@
 ﻿namespace Minesweeper
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
 
     public class Engine
     {
         const int ScoreToWin = GameField.FieldColumns * GameField.FieldRows - GameField.BombsCount;
 
         private static GameField gameField;
-        private static ScoreBoard scoreBoard;
         private static Engine instance;
 
-        private string command = string.Empty;
+        private string command = String.Empty;
 
         private bool isGameOver;
         private bool isNewGame;
@@ -21,6 +18,7 @@
         private int row;
         private int col;
         private bool isGameWon;
+        private ScoreBoard scoreBoard;
 
         private Engine()
         {
@@ -31,6 +29,7 @@
             this.Col = 0;
             this.IsGameWon = false;
             this.Command = string.Empty;
+            this.ScoreBoard = new ScoreBoard();
         }
 
         public static Engine Instance
@@ -55,7 +54,6 @@
             private set
             {
                 this.isGameWon = value;
-
             }
         }
 
@@ -131,18 +129,122 @@
             }
         }
 
+        public ScoreBoard ScoreBoard
+        {
+            get
+            {
+                return this.scoreBoard;
+            }
+            private set
+            {
+                this.scoreBoard = value;
+            }
+        }
+
+        private void DisplayScoreBoardCommand()
+        {
+            Console.WriteLine(this.ScoreBoard.ToString());
+        }
+
+        private void RestartGameCommand()
+        {
+            this.ScoreBoard.Reset();
+            this.IsGameOver = false;
+            this.IsNewGame = true;
+        }
+
+        private void ExitApplicationCommand()
+        {
+            Console.WriteLine("Good bye!");
+        }
+
+        private void GameOver()
+        {
+            //Console.Clear();
+            gameField.RevealField();
+            Console.WriteLine(gameField.ToString());
+            Console.Write("\nBooooom! You were killed by a mine. You revealed {0} cells without mines. Please enter your name for the top scoreboard: ", currentScore);
+
+            string personName = Console.ReadLine();
+            ScoreRecord record = new ScoreRecord(personName, currentScore);
+            this.ScoreBoard.AddScore(record);
+            //Console.Clear();
+            Console.WriteLine(this.ScoreBoard.ToString());
+
+            this.IsGameOver = false;
+            this.IsNewGame = true;
+            this.CurrentScore = 0;
+        }
+
+        private void GameWon()
+        {
+            //Console.Clear();
+            gameField.RevealField();
+            Console.WriteLine(gameField.ToString());
+            Console.WriteLine("\nYou revealed all 35 cells.");
+            Console.WriteLine("Please enter your name for the top scoreboard: ");
+
+            string personName = Console.ReadLine();
+            IScoreRecord record = new ScoreRecord(personName, currentScore);
+            this.ScoreBoard.AddScore(record);
+            Console.WriteLine(this.ScoreBoard.ToString());
+
+            this.IsGameWon = false;
+            this.IsNewGame = true;
+            this.CurrentScore = 0;
+        }
+
+        private void NewGame()
+        {
+            gameField = new GameField();
+            Console.WriteLine("Welcome to the game “Minesweeper”. Try to reveal all cells without mines. Use 'top' to view the scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
+            string fieldToString = gameField.ToString();
+            Console.WriteLine(fieldToString);
+            this.IsNewGame = false;
+        }
+
+        private void Reveal()
+        {
+            bool rowIsValid = int.TryParse(command[0].ToString(), out row);
+            bool colIsValid = int.TryParse(command[2].ToString(), out col);
+            bool rowIsInRange = row <= gameField.Field.GetLength(0) && row >= 0;
+            bool colIsInRange = col <= gameField.Field.GetLength(1) && col >= 0;
+
+            if (rowIsValid && rowIsInRange && colIsValid && colIsInRange)
+            {
+                if (!gameField.Field[row, col].IsBomb)
+                {
+                    //Console.Clear();
+
+                    if (gameField.Field[row, col].IsHidden)
+                    {
+                        gameField.RevealPosition(row, col);
+                        this.CurrentScore++;
+                    }
+
+                    if (this.CurrentScore == ScoreToWin)
+                    {
+                        this.IsGameWon = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine(gameField.ToString());
+                    }
+                }
+                else
+                {
+                    this.IsGameOver = true;
+                }
+            }
+        }
+
         public void Start()
         {
             do
             {
                 if (this.IsNewGame)
                 {
-                    gameField = new GameField();
-                    Console.WriteLine("Welcome to the game “Minesweeper”. Try to reveal all cells without mines." +
-                    " Use 'top' to view the scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
-                    string fieldToString = gameField.ToString();
-                    Console.WriteLine(fieldToString);
-                    this.IsNewGame = false;
+                    this.NewGame();
                 }
 
                 Console.Write("Enter row and column: ");
@@ -150,104 +252,41 @@
 
                 if (this.Command.Length >= 3)
                 {
-                    bool rowIsValid = int.TryParse(command[0].ToString(), out row);
-                    bool colIsValid = int.TryParse(command[2].ToString(), out col);
-                    bool rowIsInRange = row <= gameField.Field.GetLength(0) && row >= 0;
-                    bool colIsInRange = col <= gameField.Field.GetLength(1) && col >= 0;
-
-                    if (rowIsValid && rowIsInRange && colIsValid && colIsInRange)
-                    {
-                        this.Command = "turn";
-                    }
+                    this.Reveal();
                 }
 
                 switch (this.Command)
                 {
                     case "top":
-                        //Console.Clear();
-                        Console.WriteLine(scoreBoard.ToString());
+                        this.DisplayScoreBoardCommand();
                         break;
+
                     case "restart":
-                        //Console.Clear();
-                        this.IsGameOver = false;
-                        this.IsNewGame = true;
+                        this.RestartGameCommand();
                         continue;
+
                     case "exit":
-                        Console.WriteLine("Good bye!");
+                        this.ExitApplicationCommand();
                         break;
-                    case "turn":
-                        if (!gameField.Field[row, col].IsBomb)
-                        {
-                            //Console.Clear();
 
-                            if (gameField.Field[row, col].IsHidden)
-                            {
-                                gameField.RevealPosition(row, col);
-                                this.CurrentScore++;
-                            }
-
-                            if (this.CurrentScore == ScoreToWin)
-                            {
-                                this.IsGameWon = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine(gameField.ToString());
-                            }
-                        }
-                        else
-                        {
-                            this.IsGameOver = true;
-                        }
-
-                        break;
                     default:
                         Console.WriteLine("\nIllegal move!\n");
                         break;
                 }
 
-                scoreBoard = new ScoreBoard();
-
                 if (isGameOver)
                 {
-
-                    //Console.Clear();
-                    gameField.RevealField();
-                    Console.WriteLine(gameField.ToString());
-                    Console.Write("\nBooooom! You were killed by a mine. You revealed {0} cells without mines." +
-                        "Please enter your name for the top scoreboard: ", currentScore);
-
-                    string personName = Console.ReadLine();
-                    ScoreRecord record = new ScoreRecord(personName, currentScore);
-                    scoreBoard.AddScore(record);
-                    //Console.Clear();
-                    Console.WriteLine(scoreBoard.ToString());
-
-                    this.IsGameOver = false;
-                    this.IsNewGame = true;
-                    this.CurrentScore = 0;
+                    this.GameOver();
                     continue;
                 }
 
                 if (this.IsGameWon)
                 {
-                    //Console.Clear();
-                    gameField.RevealField();
-                    Console.WriteLine(gameField.ToString());
-                    Console.WriteLine("\nYou revealed all 35 cells.");
-                    Console.WriteLine("Please enter your name for the top scoreboard: ");
-
-                    string personName = Console.ReadLine();
-                    ScoreRecord record = new ScoreRecord(personName, currentScore);
-                    scoreBoard.AddScore(record);
-                    Console.WriteLine(scoreBoard.ToString());
-
-                    this.IsGameWon = false;
-                    this.IsNewGame = true;
-                    this.CurrentScore = 0;
+                    this.GameWon();
                     continue;
                 }
-            } while (this.Command != "exit");
+            }
+            while (this.Command != "exit");
         }
     }
 }
