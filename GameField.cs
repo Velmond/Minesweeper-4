@@ -42,76 +42,79 @@
             }
             else
             {
-                int surroundingBombsCount = 0;
-                int boardRows = this.Field.GetLength(0);
-                int boardColumns = this.Field.GetLength(1);
-
-                if (row - 1 >= 0)
-                {
-                    if (this.Field[row - 1, col].IsBomb)
-                    {
-                        surroundingBombsCount++;
-                    }
-                }
-
-                if (row + 1 < boardRows)
-                {
-                    if (this.Field[row + 1, col].IsBomb)
-                    {
-                        surroundingBombsCount++;
-                    }
-                }
-
-                if (col - 1 >= 0)
-                {
-                    if (this.Field[row, col - 1].IsBomb)
-                    {
-                        surroundingBombsCount++;
-                    }
-                }
-
-                if (col + 1 < boardColumns)
-                {
-                    if (this.Field[row, col + 1].IsBomb)
-                    {
-                        surroundingBombsCount++;
-                    }
-                }
-
-                if ((row - 1 >= 0) && (col - 1 >= 0))
-                {
-                    if (this.Field[row - 1, col - 1].IsBomb)
-                    {
-                        surroundingBombsCount++;
-                    }
-                }
-
-                if ((row - 1 >= 0) && (col + 1 < boardColumns))
-                {
-                    if (this.Field[row - 1, col + 1].IsBomb)
-                    {
-                        surroundingBombsCount++;
-                    }
-                }
-
-                if ((row + 1 < boardRows) && (col - 1 >= 0))
-                {
-                    if (this.Field[row + 1, col - 1].IsBomb)
-                    {
-                        surroundingBombsCount++;
-                    }
-                }
-
-                if ((row + 1 < boardRows) && (col + 1 < boardColumns))
-                {
-                    if (this.Field[row + 1, col + 1].IsBomb)
-                    {
-                        surroundingBombsCount++;
-                    }
-                }
-
-                this.Field[row, col].Reveal(surroundingBombsCount.ToString().ToString()[0]);
+                int surroundingBombsCount = this.SurroundingBombsCount(row, col);
+                this.Field[row, col].Reveal(surroundingBombsCount.ToString()[0]);
             }
+        }
+
+        private int SurroundingBombsCount(int row, int col)
+        {
+            int surroundingBombsCount = 0;
+            if (row - 1 >= 0)
+            {
+                if (this.Field[row - 1, col].IsBomb)
+                {
+                    surroundingBombsCount++;
+                }
+            }
+
+            if (row + 1 < FieldRows)
+            {
+                if (this.Field[row + 1, col].IsBomb)
+                {
+                    surroundingBombsCount++;
+                }
+            }
+
+            if (col - 1 >= 0)
+            {
+                if (this.Field[row, col - 1].IsBomb)
+                {
+                    surroundingBombsCount++;
+                }
+            }
+
+            if (col + 1 < FieldColumns)
+            {
+                if (this.Field[row, col + 1].IsBomb)
+                {
+                    surroundingBombsCount++;
+                }
+            }
+
+            if ((row - 1 >= 0) && (col - 1 >= 0))
+            {
+                if (this.Field[row - 1, col - 1].IsBomb)
+                {
+                    surroundingBombsCount++;
+                }
+            }
+
+            if ((row - 1 >= 0) && (col + 1 < FieldColumns))
+            {
+                if (this.Field[row - 1, col + 1].IsBomb)
+                {
+                    surroundingBombsCount++;
+                }
+            }
+
+            if ((row + 1 < FieldRows) && (col - 1 >= 0))
+            {
+                if (this.Field[row + 1, col - 1].IsBomb)
+                {
+                    surroundingBombsCount++;
+                }
+            }
+
+            if ((row + 1 < FieldRows) && (col + 1 < FieldColumns))
+            {
+                if (this.Field[row + 1, col + 1].IsBomb)
+                {
+                    surroundingBombsCount++;
+                }
+            }
+
+            return surroundingBombsCount;
         }
 
         public override string ToString()
@@ -122,11 +125,11 @@
             toString.AppendLine("    0 1 2 3 4 5 6 7 8 9");
             toString.AppendLine("   ---------------------");
 
-            for (int i = 0; i < this.Field.GetLength(0); i++)
+            for (int i = 0; i < FieldRows; i++)
             {
                 toString.Append(string.Format("{0} | ", i));
 
-                for (int j = 0; j < this.Field.GetLength(1); j++)
+                for (int j = 0; j < FieldColumns; j++)
                 {
                     toString.Append(string.Format("{0} ", this.Field[i, j].Value));
                 }
@@ -168,13 +171,13 @@
 
             foreach (int bomb in bombs)
             {
-                int row = (bomb / gameField.GetLength(1));
-                int column = (bomb % gameField.GetLength(1));
+                int row = bomb / FieldColumns;
+                int column = bomb % FieldColumns;
 
                 if (column == 0 && bomb != 0)
                 {
                     row--;
-                    column = gameField.GetLength(1);
+                    column = FieldColumns;
                 }
                 else
                 {

@@ -5,7 +5,7 @@
 
     public class Engine
     {
-        const int ScoreToWin = GameField.FieldColumns * GameField.FieldRows - GameField.BombsCount;
+        private readonly int ScoreToWin = GameField.FieldColumns * GameField.FieldRows - GameField.BombsCount;
 
         private static GameField gameField;
         private static Engine instance;
@@ -51,6 +51,7 @@
             {
                 return this.isGameWon;
             }
+
             private set
             {
                 this.isGameWon = value;
@@ -63,6 +64,7 @@
             {
                 return this.col;
             }
+
             private set
             {
                 this.col = value;
@@ -75,6 +77,7 @@
             {
                 return this.row;
             }
+
             private set
             {
                 this.row = value;
@@ -87,6 +90,7 @@
             {
                 return this.currentScore;
             }
+
             private set
             {
                 this.currentScore = value;
@@ -99,6 +103,7 @@
             {
                 return this.isNewGame;
             }
+
             private set
             {
                 this.isNewGame = value;
@@ -111,6 +116,7 @@
             {
                 return this.isGameOver;
             }
+
             private set
             {
                 this.isGameOver = value;
@@ -123,6 +129,7 @@
             {
                 return this.command;
             }
+
             private set
             {
                 this.command = value;
@@ -135,6 +142,7 @@
             {
                 return this.scoreBoard;
             }
+
             private set
             {
                 this.scoreBoard = value;
@@ -178,14 +186,14 @@
 
         private void GameWon()
         {
-            //Console.Clear();
+            // Console.Clear();
             gameField.RevealField();
             Console.WriteLine(gameField.ToString());
             Console.WriteLine("\nYou revealed all 35 cells.");
             Console.WriteLine("Please enter your name for the top scoreboard: ");
 
             string personName = Console.ReadLine();
-            IScoreRecord record = new ScoreRecord(personName, currentScore);
+            IScoreRecord record = new ScoreRecord(personName, this.currentScore);
             this.ScoreBoard.AddScore(record);
             Console.WriteLine(this.ScoreBoard.ToString());
 
@@ -205,17 +213,16 @@
 
         private void Reveal()
         {
-            bool rowIsValid = int.TryParse(command[0].ToString(), out row);
-            bool colIsValid = int.TryParse(command[2].ToString(), out col);
-            bool rowIsInRange = row <= gameField.Field.GetLength(0) && row >= 0;
-            bool colIsInRange = col <= gameField.Field.GetLength(1) && col >= 0;
+            bool rowIsValid = int.TryParse(command[0].ToString(), out this.row);
+            bool colIsValid = int.TryParse(command[2].ToString(), out this.col);
+            bool rowIsInRange = (this.row < gameField.Field.GetLength(0)) && (this.row >= 0);
+            bool colIsInRange = (this.col < gameField.Field.GetLength(1)) && (this.col >= 0);
 
             if (rowIsValid && rowIsInRange && colIsValid && colIsInRange)
             {
-                if (!gameField.Field[row, col].IsBomb)
+                if (!gameField.Field[this.row, this.col].IsBomb)
                 {
-                    //Console.Clear();
-
+                    // Console.Clear();
                     if (gameField.Field[row, col].IsHidden)
                     {
                         gameField.RevealPosition(row, col);
@@ -235,6 +242,10 @@
                 {
                     this.IsGameOver = true;
                 }
+            }
+            else if (rowIsValid && colIsValid)
+            {
+                Console.WriteLine("These coordinates are outside the filed");
             }
         }
 
@@ -270,11 +281,10 @@
                         break;
 
                     default:
-                        Console.WriteLine("\nIllegal move!\n");
                         break;
                 }
 
-                if (isGameOver)
+                if (this.isGameOver)
                 {
                     this.GameOver();
                     continue;
