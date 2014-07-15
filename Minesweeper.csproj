@@ -69,6 +69,8 @@
   <ItemGroup>
     <Compile Include="Engine.cs" />
     <Compile Include="GameField.cs" />
+    <Compile Include="GameFieldMemento.cs" />
+    <Compile Include="GameFieldSave.cs" />
     <Compile Include="IScoreRecord.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Position.cs" />

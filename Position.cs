@@ -13,6 +13,13 @@
             this.Value = '?';
         }
 
+        public Position(char value, bool isHidden, bool isBomb)
+        {
+            this.IsBomb = isBomb;
+            this.IsHidden = isHidden;
+            this.Value = value;
+        }
+
         public bool IsBomb
         {
             get { return this.isBomb; }

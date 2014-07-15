@@ -117,6 +117,24 @@
             return surroundingBombsCount;
         }
 
+        /// <summary>
+        /// Creates a memento of the game field from which it could eventualy be saved.
+        /// </summary>
+        /// <returns>A GameFieldMemento instantiation with the current Field</returns>
+        public GameFieldMemento Save()
+        {
+            return new GameFieldMemento(this.Field);
+        }
+
+        /// <summary>
+        /// Restores the game field from a given memento.
+        /// </summary>
+        /// <param name="memento">The memento from which the Field should be restored.</param>
+        public void RestoreFromSave(GameFieldMemento memento)
+        {
+            this.Field = memento.Field;
+        }
+
         public override string ToString()
         {
             StringBuilder toString = new StringBuilder();
