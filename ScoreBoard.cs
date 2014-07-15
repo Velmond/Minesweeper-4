@@ -52,8 +52,8 @@
             {
                 this.HighScores.Add(currentScore);
             }
-            else if (currentScore.PlayerScore > this.HighScores[lastHighScoreId].PlayerScore) // removed: (this.HighScores.Count < MaxNumberOfEntries)
-            {
+            else if (currentScore.PlayerScore > this.HighScores[lastHighScoreId].PlayerScore || this.HighScores.Count < MaxNumberOfEntries)
+            { // The second part of this 'if' is needed because otherwise if the first time the score is 10 and the following ones are below they will not be written in the scores
                 for (int i = 0; i < this.HighScores.Count; i++)
                 {
                     IScoreRecord iterationScore = this.HighScores[i];

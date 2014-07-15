@@ -9,27 +9,25 @@
         private static Engine instance;
 
         private GameField gameField;
-        private string command = String.Empty;
+        private GameFieldSave gameFieldSave;
+        private string command;
         private bool isGameOver;
         private bool isNewGame;
+        private bool isGameWon;
         private int currentScore;
         private int row;
         private int col;
-        private bool isGameWon;
         private ScoreBoard scoreBoard;
-        private GameFieldSave gameFieldSave;
 
         private Engine()
         {
+            this.GameFieldSave = new GameFieldSave();
+            this.Command = string.Empty;
             this.IsGameOver = false;
             this.IsNewGame = true;
-            this.CurrentScore = 0;
-            this.Row = 0;
-            this.Col = 0;
             this.IsGameWon = false;
-            this.Command = string.Empty;
+            this.CurrentScore = 0;
             this.ScoreBoard = new ScoreBoard();
-            this.GameFieldSave = new GameFieldSave();
         }
 
         public static Engine Instance
@@ -45,6 +43,19 @@
             }
         }
 
+        public GameField GameField
+        {
+            get
+            {
+                return this.gameField;
+            }
+
+            private set
+            {
+                this.gameField = value;
+            }
+        }
+
         public bool IsGameWon
         {
             get
@@ -55,32 +66,6 @@
             private set
             {
                 this.isGameWon = value;
-            }
-        }
-
-        public int Col
-        {
-            get
-            {
-                return this.col;
-            }
-
-            private set
-            {
-                this.col = value;
-            }
-        }
-
-        public int Row
-        {
-            get
-            {
-                return this.row;
-            }
-
-            private set
-            {
-                this.row = value;
             }
         }
 
@@ -181,28 +166,27 @@
 
         private void SaveCommand()
         {
-            this.GameFieldSave.SavedField = this.gameField.Save();
+            this.GameFieldSave.SavedField = this.GameField.Save();
         }
 
         private void RestoreCommand()
         {
             if (this.GameFieldSave.SavedField != null)
             {
-                this.gameField.RestoreFromSave(this.GameFieldSave.SavedField);
+                this.GameField.RestoreFromSave(this.GameFieldSave.SavedField);
             }
         }
 
         private void GameOver()
         {
-            //Console.Clear();
-            this.gameField.RevealField();
-            Console.WriteLine(this.gameField.ToString());
-            Console.Write("\nBooooom! You were killed by a mine. You revealed {0} cells without mines. Please enter your name for the top scoreboard: ", currentScore);
+            this.GameField.RevealField();
+            Console.WriteLine(this.GameField.ToString());
+            Console.Write("\nBooooom! You were killed by a mine. You revealed {0} cells without mines." +
+                " Please enter your name for the top scoreboard: ", this.CurrentScore);
 
             string personName = Console.ReadLine();
-            ScoreRecord record = new ScoreRecord(personName, currentScore);
+            ScoreRecord record = new ScoreRecord(personName, this.CurrentScore);
             this.ScoreBoard.AddScore(record);
-            //Console.Clear();
             Console.WriteLine(this.ScoreBoard.ToString());
 
             this.IsGameOver = false;
@@ -212,14 +196,13 @@
 
         private void GameWon()
         {
-            // Console.Clear();
-            this.gameField.RevealField();
-            Console.WriteLine(this.gameField.ToString());
+            this.GameField.RevealField();
+            Console.WriteLine(this.GameField.ToString());
             Console.WriteLine("\nYou revealed all 35 cells.");
             Console.WriteLine("Please enter your name for the top scoreboard: ");
 
             string personName = Console.ReadLine();
-            IScoreRecord record = new ScoreRecord(personName, this.currentScore);
+            IScoreRecord record = new ScoreRecord(personName, this.CurrentScore);
             this.ScoreBoard.AddScore(record);
             Console.WriteLine(this.ScoreBoard.ToString());
 
@@ -230,28 +213,27 @@
 
         private void NewGame()
         {
-            this.gameField = new GameField();
-            Console.WriteLine("Welcome to the game “Minesweeper”. Try to reveal all cells without mines. Use 'top' to view the scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
-            string fieldToString = this.gameField.ToString();
-            Console.WriteLine(fieldToString);
+            this.GameField = new GameField();
+            Console.WriteLine("Welcome to the game “Minesweeper”. Try to reveal all cells without mines." +
+                " Use 'top' to view the scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
+            Console.WriteLine(this.GameField.ToString());
             this.IsNewGame = false;
         }
 
         private void Reveal()
         {
-            bool rowIsValid = int.TryParse(command[0].ToString(), out this.row);
-            bool colIsValid = int.TryParse(command[2].ToString(), out this.col);
-            bool rowIsInRange = (this.row < this.gameField.Field.GetLength(0)) && (this.row >= 0);
-            bool colIsInRange = (this.col < this.gameField.Field.GetLength(1)) && (this.col >= 0);
+            bool rowIsValid = int.TryParse(this.Command[0].ToString(), out this.row);
+            bool colIsValid = int.TryParse(this.Command[2].ToString(), out this.col);
+            bool rowIsInRange = (this.row < this.GameField.Field.GetLength(0)) && (this.row >= 0);
+            bool colIsInRange = (this.col < this.GameField.Field.GetLength(1)) && (this.col >= 0);
 
             if (rowIsValid && rowIsInRange && colIsValid && colIsInRange)
             {
-                if (!this.gameField.Field[this.row, this.col].IsBomb)
+                if (!this.GameField.Field[this.row, this.col].IsBomb)
                 {
-                    // Console.Clear();
-                    if (this.gameField.Field[row, col].IsHidden)
+                    if (this.GameField.Field[this.row, this.col].IsHidden)
                     {
-                        this.gameField.RevealPosition(row, col);
+                        this.GameField.RevealPosition(this.row, this.col);
                         this.CurrentScore++;
                     }
 
@@ -261,7 +243,7 @@
                     }
                     else
                     {
-                        Console.WriteLine(this.gameField.ToString());
+                        Console.WriteLine(this.GameField.ToString());
                     }
                 }
                 else
@@ -318,7 +300,7 @@
                         break;
                 }
 
-                if (this.isGameOver)
+                if (this.IsGameOver)
                 {
                     this.GameOver();
                     continue;

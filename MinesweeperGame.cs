@@ -6,8 +6,9 @@
     {
         static void Main()
         {
-            Engine.Instance.Start();
-
+            var engine = Engine.Instance;
+            engine.Start();
+            
             // Console.Clear();
             Console.WriteLine("Made by Pavlin Panev 2010 - all rights reserved!");
 
