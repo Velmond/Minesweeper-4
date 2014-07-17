@@ -25,9 +25,9 @@
 
         public void RevealField()
         {
-            for (int row = 0; row < this.Field.GetLength(0); row++)
+            for (int row = 0; row < FieldRows; row++)
             {
-                for (int col = 0; col < this.Field.GetLength(1); col++)
+                for (int col = 0; col < FieldColumns; col++)
                 {
                     RevealPosition(row, col);
                 }

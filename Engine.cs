@@ -6,6 +6,8 @@
     {
         private readonly int ScoreToWin = GameField.FieldColumns * GameField.FieldRows - GameField.BombsCount;
 
+        private const int FieldDimensions = 2;
+
         private static Engine instance;
 
         private GameField gameField;
@@ -13,6 +15,7 @@
         private string command;
         private bool isGameOver;
         private bool isNewGame;
+        private bool isGameOn;
         private bool isGameWon;
         private int currentScore;
         private int row;
@@ -22,12 +25,12 @@
         private Engine()
         {
             this.GameFieldSave = new GameFieldSave();
-            this.Command = string.Empty;
             this.IsGameOver = false;
             this.IsNewGame = true;
             this.IsGameWon = false;
             this.CurrentScore = 0;
             this.ScoreBoard = new ScoreBoard();
+            this.isGameOn = true;
         }
 
         public static Engine Instance
@@ -108,19 +111,6 @@
             }
         }
 
-        public string Command
-        {
-            get
-            {
-                return this.command;
-            }
-
-            private set
-            {
-                this.command = value;
-            }
-        }
-
         public ScoreBoard ScoreBoard
         {
             get
@@ -174,6 +164,8 @@
             if (this.GameFieldSave.SavedField != null)
             {
                 this.GameField.RestoreFromSave(this.GameFieldSave.SavedField);
+                Console.WriteLine(this.GameField.ToString());
+                
             }
         }
 
@@ -220,40 +212,98 @@
             this.IsNewGame = false;
         }
 
+        private void ExecuteCommand(string executeCommand)
+        {
+            switch (executeCommand)
+            {
+                case "top":
+                    this.DisplayScoreBoardCommand();
+                    break;
+
+                case "restart":
+                    this.RestartGameCommand();
+                    break;
+
+                case "exit":
+                    this.ExitApplicationCommand();
+                    this.isGameOn = false;
+                    break;
+
+                case "save":
+                    this.SaveCommand();
+                    break;
+
+                case "restore":
+                    this.RestoreCommand();
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid Command !");
+                    break;
+            }
+        }
+
         private void Reveal()
         {
-            bool rowIsValid = int.TryParse(this.Command[0].ToString(), out this.row);
-            bool colIsValid = int.TryParse(this.Command[2].ToString(), out this.col);
-            bool rowIsInRange = (this.row < this.GameField.Field.GetLength(0)) && (this.row >= 0);
-            bool colIsInRange = (this.col < this.GameField.Field.GetLength(1)) && (this.col >= 0);
-
-            if (rowIsValid && rowIsInRange && colIsValid && colIsInRange)
+            if (!this.GameField.Field[this.row, this.col].IsBomb)
             {
-                if (!this.GameField.Field[this.row, this.col].IsBomb)
+                if (this.GameField.Field[this.row, this.col].IsHidden)
                 {
-                    if (this.GameField.Field[this.row, this.col].IsHidden)
-                    {
-                        this.GameField.RevealPosition(this.row, this.col);
-                        this.CurrentScore++;
-                    }
+                    this.GameField.RevealPosition(this.row, this.col);
+                    this.CurrentScore++;
+                }
 
-                    if (this.CurrentScore == ScoreToWin)
-                    {
-                        this.IsGameWon = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine(this.GameField.ToString());
-                    }
+                if (this.CurrentScore == ScoreToWin)
+                {
+                    this.IsGameWon = true;
                 }
                 else
                 {
-                    this.IsGameOver = true;
+                    Console.WriteLine(this.GameField.ToString());
                 }
             }
-            else if (rowIsValid && colIsValid)
+            else
             {
-                Console.WriteLine("These coordinates are outside the filed");
+                this.IsGameOver = true;
+            }
+        }
+
+        private void ReadCommand()
+        {
+            Console.Write("Enter row and columnz: ");
+            string currentCommand = Console.ReadLine();
+
+            while (string.IsNullOrEmpty(currentCommand))
+            {
+                Console.Write("Enter row and columnz: ");
+                currentCommand = Console.ReadLine();
+            }
+
+            string[] commandElements = currentCommand.Split(new string[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+
+            if (commandElements.Length == FieldDimensions)
+            {
+                bool rowIsValid = int.TryParse(commandElements[0], out this.row);
+                bool colIsValid = int.TryParse(commandElements[1], out this.col);
+                bool rowIsInRange = (this.row < this.GameField.Field.GetLength(0)) && (this.row >= 0);
+                bool colIsInRange = (this.col < this.GameField.Field.GetLength(1)) && (this.col >= 0);
+
+                if (rowIsValid && rowIsInRange && colIsValid && colIsInRange)
+                {
+                    this.Reveal();
+                }
+                else if (rowIsValid && colIsValid)
+                {
+                    Console.WriteLine("These coordinates are outside the filed");
+                }
+                else
+                {
+                    this.ExecuteCommand(currentCommand);
+                }
+            }
+            else
+            {
+                this.ExecuteCommand(currentCommand);
             }
         }
 
@@ -266,40 +316,7 @@
                     this.NewGame();
                 }
 
-                Console.Write("Enter row and column: ");
-                this.Command = Console.ReadLine().Trim();
-
-                if (this.Command.Length >= 3)
-                {
-                    this.Reveal();
-                }
-
-                switch (this.Command)
-                {
-                    case "top":
-                        this.DisplayScoreBoardCommand();
-                        break;
-
-                    case "restart":
-                        this.RestartGameCommand();
-                        continue;
-
-                    case "exit":
-                        this.ExitApplicationCommand();
-                        break;
-
-                    case "save":
-                        this.SaveCommand();
-                        break;
-
-                    case "restore":
-                        this.RestoreCommand();
-                        break;
-
-                    default:
-                        break;
-                }
-
+                this.ReadCommand();
                 if (this.IsGameOver)
                 {
                     this.GameOver();
@@ -312,7 +329,7 @@
                     continue;
                 }
             }
-            while (this.Command != "exit");
+            while (this.isGameOn);
         }
     }
 }
