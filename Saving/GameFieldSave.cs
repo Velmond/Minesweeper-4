@@ -1,13 +1,12 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Saving
 {
+    using Contracts;
+
     /// <summary>
     /// Class that contains the memento that contains the saved game field
     /// </summary>
-    public class GameFieldSave
+    public class GameFieldSave : IGameFieldSave
     {
-        /// <summary>
-        /// Gets or sets the memento that contains a saved game field
-        /// </summary>
         public GameFieldMemento SavedField { get; set; }
     }
 }

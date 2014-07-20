@@ -1,4 +1,4 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Scoring.Contracts
 {
     /// <summary>
     /// Provides a default template of score record data

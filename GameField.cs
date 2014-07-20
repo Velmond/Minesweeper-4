@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Saving;
 
     public class GameField
     {
@@ -14,13 +15,21 @@
 
         public GameField()
         {
-            this.Field = GenerateGameField();
+            this.SetNewField();
         }
 
         public Position[,] Field
         {
             get { return this.gameField; }
             private set { this.gameField = value; }
+        }
+
+        /// <summary>
+        /// Prepares new game field for the player.
+        /// </summary>
+        public void SetNewField()
+        {
+            this.Field = GenerateGameField();
         }
 
         public void RevealField()

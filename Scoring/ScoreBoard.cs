@@ -1,7 +1,8 @@
-﻿namespace Minesweeper
+﻿namespace Minesweeper.Scoring
 {
     using System.Collections.Generic;
     using System.Text;
+    using Contracts;
 
     public class ScoreBoard
     {

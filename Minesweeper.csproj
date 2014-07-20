@@ -68,14 +68,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine.cs" />
+    <Compile Include="GameFactory\Creator.cs" />
+    <Compile Include="GameFactory\GameCreator.cs" />
     <Compile Include="GameField.cs" />
-    <Compile Include="GameFieldMemento.cs" />
-    <Compile Include="GameFieldSave.cs" />
-    <Compile Include="IScoreRecord.cs" />
+    <Compile Include="Rendering\Contracts\IRenderer.cs" />
+    <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Saving\Contracts\IGameFieldSave.cs" />
+    <Compile Include="Saving\GameFieldMemento.cs" />
+    <Compile Include="Saving\GameFieldSave.cs" />
+    <Compile Include="Scoring\Contracts\IScoreRecord.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Position.cs" />
-    <Compile Include="ScoreBoard.cs" />
-    <Compile Include="ScoreRecord.cs" />
+    <Compile Include="Scoring\ScoreBoard.cs" />
+    <Compile Include="Scoring\ScoreRecord.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -98,7 +103,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassStructure.cd" />
+    <None Include="StructureDiagrams\ClassStructure.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

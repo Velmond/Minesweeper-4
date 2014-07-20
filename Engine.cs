@@ -1,18 +1,26 @@
 ﻿namespace Minesweeper
 {
     using System;
+    using Scoring;
+    using Saving.Contracts;
+    using Scoring.Contracts;
+    using Rendering.Contracts;
+    using GameFactory;
 
     public class Engine
     {
-        private readonly int ScoreToWin = GameField.FieldColumns * GameField.FieldRows - GameField.BombsCount;
+        private readonly int scoreToWin = GameField.FieldColumns * GameField.FieldRows - GameField.BombsCount;
 
         private const int FieldDimensions = 2;
 
         private static Engine instance;
 
         private GameField gameField;
-        private GameFieldSave gameFieldSave;
-        private string command;
+        private ScoreBoard scoreBoard;
+        private Creator creator;
+        private IGameFieldSave gameFieldSave;
+        private IRenderer renderer;
+        //private string command;
         private bool isGameOver;
         private bool isNewGame;
         private bool isGameOn;
@@ -20,17 +28,20 @@
         private int currentScore;
         private int row;
         private int col;
-        private ScoreBoard scoreBoard;
-
+        
         private Engine()
         {
-            this.GameFieldSave = new GameFieldSave();
+            this.Creator = new GameCreator();
+
+            this.GameFieldSave = this.Creator.CreateGameFieldSave();
             this.IsGameOver = false;
             this.IsNewGame = true;
             this.IsGameWon = false;
             this.CurrentScore = 0;
-            this.ScoreBoard = new ScoreBoard();
+            this.GameField = this.Creator.CreateGameField();
+            this.ScoreBoard = this.Creator.CreateScoreBoard();
             this.isGameOn = true;
+            this.Renderer = this.Creator.CreateRenderer(this.ScoreBoard, this.GameField);
         }
 
         public static Engine Instance
@@ -124,7 +135,7 @@
             }
         }
 
-        public GameFieldSave GameFieldSave
+        public IGameFieldSave GameFieldSave
         {
             get
             {
@@ -136,10 +147,22 @@
                 this.gameFieldSave = value;
             }
         }
+
+        public IRenderer Renderer
+        {
+            get { return this.renderer; }
+            private set { this.renderer = value; }
+        }
+
+        public Creator Creator
+        {
+            get { return this.creator; }
+            private set { this.creator = value; }
+        }
         
         private void DisplayScoreBoardCommand()
         {
-            Console.WriteLine(this.ScoreBoard.ToString());
+            this.renderer.RenderScoreBoard();
         }
 
         private void RestartGameCommand()
@@ -151,7 +174,7 @@
 
         private void ExitApplicationCommand()
         {
-            Console.WriteLine("Good bye!");
+            this.Renderer.RenderApplicationExit();
         }
 
         private void SaveCommand()
@@ -164,22 +187,21 @@
             if (this.GameFieldSave.SavedField != null)
             {
                 this.GameField.RestoreFromSave(this.GameFieldSave.SavedField);
-                Console.WriteLine(this.GameField.ToString());
-                
+                this.Renderer.RenderGameField();
             }
         }
 
         private void GameOver()
         {
             this.GameField.RevealField();
-            Console.WriteLine(this.GameField.ToString());
-            Console.Write("\nBooooom! You were killed by a mine. You revealed {0} cells without mines." +
-                " Please enter your name for the top scoreboard: ", this.CurrentScore);
+
+            this.Renderer.RenderGameOver(this.CurrentScore);
 
             string personName = Console.ReadLine();
-            ScoreRecord record = new ScoreRecord(personName, this.CurrentScore);
+            IScoreRecord record = this.Creator.CreateScoreRecord(personName, this.CurrentScore);
             this.ScoreBoard.AddScore(record);
-            Console.WriteLine(this.ScoreBoard.ToString());
+
+            this.Renderer.RenderScoreBoard();
 
             this.IsGameOver = false;
             this.IsNewGame = true;
@@ -189,14 +211,14 @@
         private void GameWon()
         {
             this.GameField.RevealField();
-            Console.WriteLine(this.GameField.ToString());
-            Console.WriteLine("\nYou revealed all 35 cells.");
-            Console.WriteLine("Please enter your name for the top scoreboard: ");
+
+            this.Renderer.RenderGameWon();
 
             string personName = Console.ReadLine();
-            IScoreRecord record = new ScoreRecord(personName, this.CurrentScore);
+            IScoreRecord record = this.Creator.CreateScoreRecord(personName, this.CurrentScore);
             this.ScoreBoard.AddScore(record);
-            Console.WriteLine(this.ScoreBoard.ToString());
+
+            this.Renderer.RenderScoreBoard();
 
             this.IsGameWon = false;
             this.IsNewGame = true;
@@ -205,10 +227,10 @@
 
         private void NewGame()
         {
-            this.GameField = new GameField();
-            Console.WriteLine("Welcome to the game “Minesweeper”. Try to reveal all cells without mines." +
-                " Use 'top' to view the scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
-            Console.WriteLine(this.GameField.ToString());
+            this.GameField.SetNewField();
+
+            this.Renderer.RenderNewGame();
+
             this.IsNewGame = false;
         }
 
@@ -238,7 +260,7 @@
                     break;
 
                 default:
-                    Console.WriteLine("Invalid Command !");
+                    this.Renderer.RenderMessageInvalidCommand();
                     break;
             }
         }
@@ -253,13 +275,13 @@
                     this.CurrentScore++;
                 }
 
-                if (this.CurrentScore == ScoreToWin)
+                if (this.CurrentScore == scoreToWin)
                 {
                     this.IsGameWon = true;
                 }
                 else
                 {
-                    Console.WriteLine(this.GameField.ToString());
+                    this.Renderer.RenderGameField();
                 }
             }
             else
@@ -294,7 +316,7 @@
                 }
                 else if (rowIsValid && colIsValid)
                 {
-                    Console.WriteLine("These coordinates are outside the filed");
+                    this.Renderer.RenderMessageInvalidCoordinates();
                 }
                 else
                 {
