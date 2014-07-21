@@ -45,8 +45,12 @@
 
         public void Reveal(char hiddenValue)
         {
-            this.IsHidden = false;
-            this.Value = hiddenValue;
+            // If position is not hidden it already has a value which should not be able to change
+            if (this.IsHidden)
+            {
+                this.IsHidden = false;
+                this.Value = hiddenValue;
+            }
         }
     }
 }

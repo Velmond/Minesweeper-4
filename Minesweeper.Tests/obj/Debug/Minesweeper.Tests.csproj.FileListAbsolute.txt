@@ -3,3 +3,5 @@ C:\Users\Velmond\Documents\GitHub\Minesweeper-4\Minesweeper.Tests\bin\Debug\Mine
 C:\Users\Velmond\Documents\GitHub\Minesweeper-4\Minesweeper.Tests\obj\Debug\Minesweeper.Tests.csprojResolveAssemblyReference.cache
 C:\Users\Velmond\Documents\GitHub\Minesweeper-4\Minesweeper.Tests\obj\Debug\Minesweeper.Tests.dll
 C:\Users\Velmond\Documents\GitHub\Minesweeper-4\Minesweeper.Tests\obj\Debug\Minesweeper.Tests.pdb
+C:\Users\Velmond\Documents\GitHub\Minesweeper-4\Minesweeper.Tests\bin\Debug\Minesweeper.exe
+C:\Users\Velmond\Documents\GitHub\Minesweeper-4\Minesweeper.Tests\bin\Debug\Minesweeper.pdb

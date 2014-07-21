@@ -194,15 +194,9 @@
         private void GameOver()
         {
             this.GameField.RevealField();
-
             this.Renderer.RenderGameOver(this.CurrentScore);
-
-            string personName = Console.ReadLine();
-            IScoreRecord record = this.Creator.CreateScoreRecord(personName, this.CurrentScore);
-            this.ScoreBoard.AddScore(record);
-
+            this.RecordResult();
             this.Renderer.RenderScoreBoard();
-
             this.IsGameOver = false;
             this.IsNewGame = true;
             this.CurrentScore = 0;
@@ -211,18 +205,19 @@
         private void GameWon()
         {
             this.GameField.RevealField();
-
             this.Renderer.RenderGameWon();
-
-            string personName = Console.ReadLine();
-            IScoreRecord record = this.Creator.CreateScoreRecord(personName, this.CurrentScore);
-            this.ScoreBoard.AddScore(record);
-
+            this.RecordResult();
             this.Renderer.RenderScoreBoard();
-
             this.IsGameWon = false;
             this.IsNewGame = true;
             this.CurrentScore = 0;
+        }
+
+        private void RecordResult()
+        {
+            string personName = Console.ReadLine();
+            IScoreRecord record = this.Creator.CreateScoreRecord(personName, this.CurrentScore);
+            this.ScoreBoard.AddScore(record);
         }
 
         private void NewGame()
