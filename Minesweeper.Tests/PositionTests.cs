@@ -1,6 +1,5 @@
 ﻿namespace Minesweeper.Tests
 {
-    using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]

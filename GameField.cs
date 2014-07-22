@@ -38,22 +38,70 @@
             {
                 for (int col = 0; col < FieldColumns; col++)
                 {
-                    RevealPosition(row, col);
+                    this.RevealPosition(row, col);
                 }
             }
         }
 
         public void RevealPosition(int row, int col)
         {
-            if (this.Field[row, col].IsBomb)
+            if (this.Field[row, col].IsHidden)
             {
-                this.Field[row, col].Reveal('*');
+                if (this.Field[row, col].IsBomb)
+                {
+                    this.Field[row, col].Reveal('*');
+                }
+                else
+                {
+                    int surroundingBombsCount = this.SurroundingBombsCount(row, col);
+                    this.Field[row, col].Reveal(surroundingBombsCount.ToString()[0]);
+                }
             }
-            else
+        }
+
+        /// <summary>
+        /// Creates a memento of the game field from which it could eventualy be saved.
+        /// </summary>
+        /// <returns>A GameFieldMemento instantiation with the current Field</returns>
+        public GameFieldMemento Save()
+        {
+            return new GameFieldMemento(this.Field);
+        }
+
+        /// <summary>
+        /// Restores the game field from a given memento.
+        /// </summary>
+        /// <param name="memento">The memento from which the Field should be restored.</param>
+        public void RestoreFromSave(GameFieldMemento memento)
+        {
+            this.Field = memento.Field;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder toString = new StringBuilder();
+
+            toString.AppendLine();
+            toString.AppendLine("    0 1 2 3 4 5 6 7 8 9");
+            toString.AppendLine("   ---------------------");
+
+            for (int i = 0; i < FieldRows; i++)
             {
-                int surroundingBombsCount = this.SurroundingBombsCount(row, col);
-                this.Field[row, col].Reveal(surroundingBombsCount.ToString()[0]);
+                toString.Append(string.Format("{0} | ", i));
+
+                for (int j = 0; j < FieldColumns; j++)
+                {
+                    toString.Append(string.Format("{0} ", this.Field[i, j].Value));
+                }
+
+                toString.Append("|");
+                toString.AppendLine();
             }
+
+            toString.AppendLine("   ---------------------");
+            toString.AppendLine();
+
+            return toString.ToString();
         }
 
         private int SurroundingBombsCount(int row, int col)
@@ -125,52 +173,7 @@
 
             return surroundingBombsCount;
         }
-
-        /// <summary>
-        /// Creates a memento of the game field from which it could eventualy be saved.
-        /// </summary>
-        /// <returns>A GameFieldMemento instantiation with the current Field</returns>
-        public GameFieldMemento Save()
-        {
-            return new GameFieldMemento(this.Field);
-        }
-
-        /// <summary>
-        /// Restores the game field from a given memento.
-        /// </summary>
-        /// <param name="memento">The memento from which the Field should be restored.</param>
-        public void RestoreFromSave(GameFieldMemento memento)
-        {
-            this.Field = memento.Field;
-        }
-
-        public override string ToString()
-        {
-            StringBuilder toString = new StringBuilder();
-
-            toString.AppendLine();
-            toString.AppendLine("    0 1 2 3 4 5 6 7 8 9");
-            toString.AppendLine("   ---------------------");
-
-            for (int i = 0; i < FieldRows; i++)
-            {
-                toString.Append(string.Format("{0} | ", i));
-
-                for (int j = 0; j < FieldColumns; j++)
-                {
-                    toString.Append(string.Format("{0} ", this.Field[i, j].Value));
-                }
-
-                toString.Append("|");
-                toString.AppendLine();
-            }
-
-            toString.AppendLine("   ---------------------");
-            toString.AppendLine();
-
-            return toString.ToString();
-        }
-
+        
         private Position[,] GenerateGameField()
         {
             Position[,] gameField = new Position[FieldRows, FieldColumns];
