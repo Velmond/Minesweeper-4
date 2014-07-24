@@ -216,13 +216,13 @@ namespace Minesweeper
                 this.ReadCommand();
                 if (this.IsGameOver)
                 {
-                    this.GameOver();
+                    this.GameOver(false);
                     continue;
                 }
 
                 if (this.IsGameWon)
                 {
-                    this.GameWon();
+                    this.GameOver(true);
                     continue;
                 }
             }
@@ -277,29 +277,25 @@ namespace Minesweeper
         }
 
         /// <summary>
-        /// Finishes the current game, records the player name and starts a new game
+        /// Finishes the current game, records the player name and score and starts a new game
         /// </summary>
-        private void GameOver()
+        /// <param name="isVictory">Shows if the game is won or lost</param>
+        private void GameOver(bool isVictory)
         {
             this.GameField.RevealField();
-            this.Renderer.RenderGameOver(this.CurrentScore);
+            if (isVictory)
+            {
+                this.Renderer.RenderGameWon();
+                this.IsGameWon = false;
+            }
+            else
+            {
+                this.Renderer.RenderGameOver(this.CurrentScore);
+                this.IsGameOver = false;
+            }
+            
             this.RecordResult();
             this.Renderer.RenderScoreBoard();
-            this.IsGameOver = false;
-            this.IsNewGame = true;
-            this.CurrentScore = 0;
-        }
-
-        /// <summary>
-        /// Displays winning message, records the player name and starts a new game
-        /// </summary>
-        private void GameWon()
-        {
-            this.GameField.RevealField();
-            this.Renderer.RenderGameWon();
-            this.RecordResult();
-            this.Renderer.RenderScoreBoard();
-            this.IsGameWon = false;
             this.IsNewGame = true;
             this.CurrentScore = 0;
         }

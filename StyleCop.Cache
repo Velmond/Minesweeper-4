@@ -128,11 +128,14 @@
       </violation>
     </violations>
   </sourcecode>
+  <project key="-1986109205">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
   <sourcecode name="Engine.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2014.04.01 10:18:24.000</styleCop>
       <settingsFile>2012.09.27 21:03:32.000</settingsFile>
-      <sourceFile>2014.07.24 12:36:33.424</sourceFile>
+      <sourceFile>2014.07.24 12:56:29.410</sourceFile>
       <parser>2014.04.01 10:18:24.000</parser>
       <StyleCop.CSharp.DocumentationRules>2014.04.01 10:18:24.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>-1945363787</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -227,7 +230,4 @@
       </violation>
     </violations>
   </sourcecode>
-  <project key="-1986109205">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
 </stylecopresultscache>
