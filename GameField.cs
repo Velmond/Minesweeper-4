@@ -29,7 +29,7 @@
         /// </summary>
         public void SetNewField()
         {
-            this.Field = GenerateGameField();
+            this.Field = this.GenerateGameField();
         }
 
         public void RevealField()

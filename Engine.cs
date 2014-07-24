@@ -1,15 +1,24 @@
-﻿namespace Minesweeper
+﻿// ********************************
+// <copyright file="Engine.cs" company="Minesweeper4">
+// Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+//
+// ********************************
+namespace Minesweeper
 {
     using System;
-    using Scoring;
-    using Saving.Contracts;
-    using Scoring.Contracts;
-    using Rendering.Contracts;
     using GameFactory;
+    using Rendering.Contracts;
+    using Saving.Contracts;
+    using Scoring;
+    using Scoring.Contracts;
 
+    /// <summary>
+    /// Contains the main game logic and executes all necessary operations and commands
+    /// </summary>
     public class Engine
     {
-        private readonly int scoreToWin = GameField.FieldColumns * GameField.FieldRows - GameField.BombsCount;
+        private const int ScoreToWin = (GameField.FieldColumns * GameField.FieldRows) - GameField.BombsCount;
 
         private const int FieldDimensions = 2;
 
@@ -20,7 +29,6 @@
         private Creator creator;
         private IGameFieldSave gameFieldSave;
         private IRenderer renderer;
-        //private string command;
         private bool isGameOver;
         private bool isNewGame;
         private bool isGameOn;
@@ -29,6 +37,9 @@
         private int row;
         private int col;
         
+        /// <summary>
+        /// Prevents a default instance of the <see cref="Engine"/> class from being created from outside
+        /// </summary>
         private Engine()
         {
             this.Creator = new GameCreator();
@@ -44,6 +55,9 @@
             this.Renderer = this.Creator.CreateRenderer(this.ScoreBoard, this.GameField);
         }
 
+        /// <summary>
+        /// Gets the <see cref="Engine"/> and ensures only a single instance of the <see cref="Engine"/> class can be created
+        /// </summary>
         public static Engine Instance
         {
             get
@@ -57,6 +71,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the current <see cref="GameField"/>
+        /// </summary>
         public GameField GameField
         {
             get
@@ -70,6 +87,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the game is won or not
+        /// </summary>
         public bool IsGameWon
         {
             get
@@ -83,6 +103,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the current score of the player
+        /// </summary>
         public int CurrentScore
         {
             get
@@ -96,6 +119,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether new game must be started or not
+        /// </summary>
         public bool IsNewGame
         {
             get
@@ -109,6 +135,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the current game is finished or not 
+        /// </summary>
         public bool IsGameOver
         {
             get
@@ -122,6 +151,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets <see cref="Scoring.ScoreBoard"/> with all the high scores for the game
+        /// </summary>
         public ScoreBoard ScoreBoard
         {
             get
@@ -135,6 +167,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets <see cref="GameFieldSave"/> class which can save the game
+        /// </summary>
         public IGameFieldSave GameFieldSave
         {
             get
@@ -148,23 +183,63 @@
             }
         }
 
+        /// <summary>
+        /// Gets <see cref="Renderer"/> to display the game on the console
+        /// </summary>
         public IRenderer Renderer
         {
             get { return this.renderer; }
             private set { this.renderer = value; }
         }
 
+        /// <summary>
+        /// Gets <see cref="Creator"/> which creates the objects necessary for the game
+        /// </summary>
         public Creator Creator
         {
             get { return this.creator; }
             private set { this.creator = value; }
         }
-        
+
+        /// <summary>
+        /// Starts the application and runs the game loop
+        /// </summary>
+        public void Start()
+        {
+            do
+            {
+                if (this.IsNewGame)
+                {
+                    this.NewGame();
+                }
+
+                this.ReadCommand();
+                if (this.IsGameOver)
+                {
+                    this.GameOver();
+                    continue;
+                }
+
+                if (this.IsGameWon)
+                {
+                    this.GameWon();
+                    continue;
+                }
+            }
+            while (this.isGameOn);
+        }
+
+        /// <summary>
+        /// Displays the high scores on the console
+        /// </summary>
         private void DisplayScoreBoardCommand()
         {
             this.renderer.RenderScoreBoard();
         }
 
+        /// <summary>
+        /// Stars a new game
+        /// </summary>
         private void RestartGameCommand()
         {
             this.ScoreBoard.Reset();
@@ -172,16 +247,26 @@
             this.IsNewGame = true;
         }
 
+        /// <summary>
+        /// Renders good bye message and exits the application
+        /// </summary>
         private void ExitApplicationCommand()
         {
             this.Renderer.RenderApplicationExit();
+            this.isGameOn = false;
         }
 
+        /// <summary>
+        /// Save the current state of the game field
+        /// </summary>
         private void SaveCommand()
         {
             this.GameFieldSave.SavedField = this.GameField.Save();
         }
 
+        /// <summary>
+        /// Loads the saved state of the game field
+        /// </summary>
         private void RestoreCommand()
         {
             if (this.GameFieldSave.SavedField != null)
@@ -191,6 +276,9 @@
             }
         }
 
+        /// <summary>
+        /// Finishes the current game, records the player name and starts a new game
+        /// </summary>
         private void GameOver()
         {
             this.GameField.RevealField();
@@ -202,6 +290,9 @@
             this.CurrentScore = 0;
         }
 
+        /// <summary>
+        /// Displays winning message, records the player name and starts a new game
+        /// </summary>
         private void GameWon()
         {
             this.GameField.RevealField();
@@ -213,6 +304,9 @@
             this.CurrentScore = 0;
         }
 
+        /// <summary>
+        /// Adds the result of the player to the score board
+        /// </summary>
         private void RecordResult()
         {
             string personName = Console.ReadLine();
@@ -220,6 +314,9 @@
             this.ScoreBoard.AddScore(record);
         }
 
+        /// <summary>
+        /// Creates new game field and start new game
+        /// </summary>
         private void NewGame()
         {
             this.GameField.SetNewField();
@@ -229,6 +326,10 @@
             this.IsNewGame = false;
         }
 
+        /// <summary>
+        /// Executes command entered by the player
+        /// </summary>
+        /// <param name="executeCommand">The command entered by the player</param>
         private void ExecuteCommand(string executeCommand)
         {
             switch (executeCommand)
@@ -243,7 +344,6 @@
 
                 case "exit":
                     this.ExitApplicationCommand();
-                    this.isGameOn = false;
                     break;
 
                 case "save":
@@ -260,6 +360,9 @@
             }
         }
 
+        /// <summary>
+        /// Reveals the game field cell entered by the player
+        /// </summary>
         private void Reveal()
         {
             if (!this.GameField.Field[this.row, this.col].IsBomb)
@@ -270,7 +373,7 @@
                     this.CurrentScore++;
                 }
 
-                if (this.CurrentScore == scoreToWin)
+                if (this.CurrentScore == ScoreToWin)
                 {
                     this.IsGameWon = true;
                 }
@@ -285,6 +388,9 @@
             }
         }
 
+        /// <summary>
+        /// Read the input from the console and validates the input
+        /// </summary>
         private void ReadCommand()
         {
             Console.Write("Enter row and columnz: ");
@@ -296,7 +402,7 @@
                 currentCommand = Console.ReadLine();
             }
 
-            string[] commandElements = currentCommand.Split(new string[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+            string[] commandElements = currentCommand.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
             if (commandElements.Length == FieldDimensions)
             {
@@ -322,31 +428,6 @@
             {
                 this.ExecuteCommand(currentCommand);
             }
-        }
-
-        public void Start()
-        {
-            do
-            {
-                if (this.IsNewGame)
-                {
-                    this.NewGame();
-                }
-
-                this.ReadCommand();
-                if (this.IsGameOver)
-                {
-                    this.GameOver();
-                    continue;
-                }
-
-                if (this.IsGameWon)
-                {
-                    this.GameWon();
-                    continue;
-                }
-            }
-            while (this.isGameOn);
         }
     }
 }
