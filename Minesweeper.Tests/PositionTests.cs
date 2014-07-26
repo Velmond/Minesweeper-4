@@ -9,8 +9,8 @@
         public void NewPositionValueTest()
         {
             Position positon = new Position();
-            var expected = '?';
-            var actual = positon.Value;
+            char expected = '?';
+            char actual = positon.Value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -18,8 +18,8 @@
         public void NewPositionIsBombTest()
         {
             Position positon = new Position();
-            var expected = false;
-            var actual = positon.IsBomb;
+            bool expected = false;
+            bool actual = positon.IsBomb;
             Assert.AreEqual(expected, actual);
         }
 
@@ -27,8 +27,8 @@
         public void NewPositionIsHiddenTest()
         {
             Position positon = new Position();
-            var expected = true;
-            var actual = positon.IsHidden;
+            bool expected = true;
+            bool actual = positon.IsHidden;
             Assert.AreEqual(expected, actual);
         }
 
@@ -38,8 +38,8 @@
             Position positon = new Position('?', true, false);
             positon.MakeBomb();
 
-            var expected = true;
-            var actual = positon.IsBomb;
+            bool expected = true;
+            bool actual = positon.IsBomb;
             Assert.AreEqual(expected, actual);
         }
 
@@ -49,8 +49,8 @@
             Position positon = new Position('?', true, true);
             positon.MakeBomb();
 
-            var expected = true;
-            var actual = positon.IsBomb;
+            bool expected = true;
+            bool actual = positon.IsBomb;
             Assert.AreEqual(expected, actual);
         }
 
@@ -60,8 +60,8 @@
             Position positon = new Position('?', true, false);
             positon.Reveal('1');
 
-            var expected = '1';
-            var actual = positon.Value;
+            char expected = '1';
+            char actual = positon.Value;
             Assert.AreEqual(expected, actual);
         }
 

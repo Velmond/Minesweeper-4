@@ -1,9 +1,18 @@
-﻿namespace Minesweeper.Scoring
+﻿// ********************************
+// <copyright file="ScoreBoard.cs" company="Minesweeper4">
+// Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+//
+// ********************************
+namespace Minesweeper.Scoring
 {
     using System.Collections.Generic;
     using System.Text;
     using Contracts;
 
+    /// <summary>
+    /// Stores the best high scores
+    /// </summary>
     public class ScoreBoard
     {
         private const int MaxNumberOfEntries = 6;

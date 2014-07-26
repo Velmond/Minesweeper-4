@@ -223,7 +223,6 @@ namespace Minesweeper
                 if (this.IsGameWon)
                 {
                     this.GameOver(true);
-                    continue;
                 }
             }
             while (this.isGameOn);

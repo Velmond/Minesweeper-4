@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Saving.Contracts
+﻿// ********************************
+// <copyright file="IGameFieldSave.cs" company="Minesweeper4">
+// Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+//
+// ********************************
+namespace Minesweeper.Saving.Contracts
 {
     public interface IGameFieldSave
     {

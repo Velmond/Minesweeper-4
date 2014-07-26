@@ -50,10 +50,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="GameCreatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RendererTest.cs" />
     <Compile Include="ScoreTests.cs" />
     <Compile Include="PositionTests.cs" />
-    <Compile Include="GameFieldTests.cs" />
+    <Compile Include="GameFieldTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Minesweeper.csproj">

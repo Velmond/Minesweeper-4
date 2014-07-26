@@ -1,11 +1,13 @@
 ﻿namespace Minesweeper.Tests
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Text;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using Minesweeper.Saving;
 
     [TestClass]
-    public class GameFieldTests
+    public class GameFieldTest
     {
         [TestMethod]
         public void RevealPositionTest()
@@ -23,7 +25,7 @@
             {
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
-                    var isHidden = this.IsPositionHidden(gameField.Field[row, col]);
+                    bool isHidden = this.IsPositionHidden(gameField.Field[row, col]);
 
                     if (row != col)
                     {
@@ -52,7 +54,7 @@
             {
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
-                    var isHidden = this.IsPositionHidden(gameField.Field[row, col]);
+                    bool isHidden = this.IsPositionHidden(gameField.Field[row, col]);
                     expectedResult = expectedResult && !isHidden;
                 }
             }
@@ -64,9 +66,7 @@
         public void NewFieldTest()
         {
             GameField gameField = new GameField();
-            // already tested -> no position in the field is left hidden
             gameField.RevealField();
-            // should reset all positions and should now be hidden
             gameField.SetNewField();
 
             var expectedResult = true;
@@ -75,7 +75,7 @@
             {
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
-                    var isHidden = this.IsPositionHidden(gameField.Field[row, col]);
+                    bool isHidden = this.IsPositionHidden(gameField.Field[row, col]);
                     expectedResult = expectedResult && isHidden;
                 }
             }
@@ -87,17 +87,16 @@
         public void SaveAndRestoreToHiddenTest()
         {
             GameField gameField = new GameField();
-            var memento = gameField.Save();
-            //already tested
+            GameFieldMemento memento = gameField.Save();
             gameField.RevealField();
             gameField.RestoreFromSave(memento);
-            var expectedResult = true;
+            bool expectedResult = true;
 
             for (int row = 0; row < GameField.FieldRows; row++)
             {
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
-                    var isHidden = this.IsPositionHidden(gameField.Field[row, col]);
+                    bool isHidden = this.IsPositionHidden(gameField.Field[row, col]);
                     expectedResult = expectedResult && isHidden;
                 }
             }
@@ -109,18 +108,17 @@
         public void SaveAndRestoreToRevealedTest()
         {
             GameField gameField = new GameField();
-            //already tested
             gameField.RevealField();
-            var memento = gameField.Save();
+            GameFieldMemento memento = gameField.Save();
             gameField.SetNewField();
             gameField.RestoreFromSave(memento);
-            var expectedResult = true;
+            bool expectedResult = true;
 
             for (int row = 0; row < GameField.FieldRows; row++)
             {
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
-                    var isHidden = this.IsPositionHidden(gameField.Field[row, col]);
+                    bool isHidden = this.IsPositionHidden(gameField.Field[row, col]);
                     expectedResult = expectedResult && !isHidden;
                 }
             }
@@ -132,7 +130,7 @@
         public void ToStringNonRevealedTest()
         {
             GameField gameField = new GameField();
-            var expectedBuilder = new StringBuilder();
+            StringBuilder expectedBuilder = new StringBuilder();
             expectedBuilder.AppendLine();
             expectedBuilder.AppendLine("    0 1 2 3 4 5 6 7 8 9");
             expectedBuilder.AppendLine("   ---------------------");
@@ -145,8 +143,8 @@
             expectedBuilder.AppendLine("   ---------------------");
             expectedBuilder.AppendLine();
 
-            var expected = expectedBuilder.ToString();
-            var actual = gameField.ToString();
+            string expected = expectedBuilder.ToString();
+            string actual = gameField.ToString();
 
             Assert.AreEqual(expected, actual);
         }
@@ -155,7 +153,6 @@
         public void ToStringRevealedTest()
         {
             GameField gameField = new GameField();
-            // already tested
             gameField.RevealField();
             char[,] fieldChars = new char[GameField.FieldRows, GameField.FieldColumns];
 
@@ -194,8 +191,8 @@
             expectedBuilder.AppendLine("   ---------------------");
             expectedBuilder.AppendLine();
 
-            var expected = expectedBuilder.ToString();
-            var actual = gameField.ToString();
+            string expected = expectedBuilder.ToString();
+            string actual = gameField.ToString();
 
             Assert.AreEqual(expected, actual);
         }

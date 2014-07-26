@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Saving
+﻿// ********************************
+// <copyright file="GameFieldMemento.cs" company="Minesweeper4">
+// Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+//
+// ********************************
+namespace Minesweeper.Saving
 {
     using System;
 

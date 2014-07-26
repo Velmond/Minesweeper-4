@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.Rendering.Contracts
+﻿// ********************************
+// <copyright file="IRenderer.cs" company="Minesweeper4">
+// Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+//
+// ********************************
+namespace Minesweeper.Rendering.Contracts
 {
     using Scoring;
 

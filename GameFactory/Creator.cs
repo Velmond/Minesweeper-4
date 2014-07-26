@@ -1,4 +1,10 @@
-﻿namespace Minesweeper.GameFactory
+﻿// ********************************
+// <copyright file="Creator.cs" company="Minesweeper4">
+// Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+//
+// ********************************
+namespace Minesweeper.GameFactory
 {
     using System;
     using Scoring;
