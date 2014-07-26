@@ -1,10 +1,19 @@
-﻿namespace Minesweeper
+﻿// ********************************
+// <copyright file="GameField.cs" company="Minesweeper4">
+// Copyright (c) 2014 Telerik Academy. All rights reserved.
+// </copyright>
+//
+// ********************************
+namespace Minesweeper
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
     using Saving;
 
+    /// <summary>
+    /// Two dimensional array of <see cref="Position"/> class which represents the minesweeper game field
+    /// </summary>
     public class GameField
     {
         public const int FieldRows = 5;
@@ -13,11 +22,17 @@
 
         private Position[,] gameField;
 
+        /// <summary>
+        /// Initializes new instance of the <see cref="GameField"/> class.
+        /// </summary>
         public GameField()
         {
             this.SetNewField();
         }
 
+        /// <summary>
+        /// Gets a matrix with all the positions in the field
+        /// </summary>
         public Position[,] Field
         {
             get { return this.gameField; }
@@ -32,6 +47,9 @@
             this.Field = this.GenerateGameField();
         }
 
+        /// <summary>
+        /// Reveals all positions in the field
+        /// </summary>
         public void RevealField()
         {
             for (int row = 0; row < FieldRows; row++)
@@ -43,6 +61,11 @@
             }
         }
 
+        /// <summary>
+        /// Reveals a position in the field by given coordinates
+        /// </summary>
+        /// <param name="row">Integer which represents the row of the position we want to reveal</param>
+        /// <param name="col">Integer which represents the column of the position we want to reveal</param>
         public void RevealPosition(int row, int col)
         {
             if (this.Field[row, col].IsHidden)
@@ -60,7 +83,7 @@
         }
 
         /// <summary>
-        /// Creates a memento of the game field from which it could eventualy be saved.
+        /// Creates a memento of the game field from which it could eventually be saved.
         /// </summary>
         /// <returns>A GameFieldMemento instantiation with the current Field</returns>
         public GameFieldMemento Save()
@@ -77,33 +100,43 @@
             this.Field = memento.Field;
         }
 
+        /// <summary>
+        /// Displays the minesweeper field
+        /// </summary>
+        /// <returns>String representing all the positions of the Minesweeper field</returns>
         public override string ToString()
         {
-            StringBuilder toString = new StringBuilder();
+            StringBuilder minesweepweField = new StringBuilder();
 
-            toString.AppendLine();
-            toString.AppendLine("    0 1 2 3 4 5 6 7 8 9");
-            toString.AppendLine("   ---------------------");
+            minesweepweField.AppendLine();
+            minesweepweField.AppendLine("    0 1 2 3 4 5 6 7 8 9");
+            minesweepweField.AppendLine("   ---------------------");
 
             for (int i = 0; i < FieldRows; i++)
             {
-                toString.Append(string.Format("{0} | ", i));
+                minesweepweField.Append(string.Format("{0} | ", i));
 
                 for (int j = 0; j < FieldColumns; j++)
                 {
-                    toString.Append(string.Format("{0} ", this.Field[i, j].Value));
+                    minesweepweField.Append(string.Format("{0} ", this.Field[i, j].Value));
                 }
 
-                toString.Append("|");
-                toString.AppendLine();
+                minesweepweField.Append("|");
+                minesweepweField.AppendLine();
             }
 
-            toString.AppendLine("   ---------------------");
-            toString.AppendLine();
+            minesweepweField.AppendLine("   ---------------------");
+            minesweepweField.AppendLine();
 
-            return toString.ToString();
+            return minesweepweField.ToString();
         }
 
+        /// <summary>
+        /// Counts the number of bombs surrounding given position
+        /// </summary>
+        /// <param name="row">Integer number representing the row of the <see cref="GameField"/> class position we want to visit</param>
+        /// <param name="col">Integer number representing the column of the <see cref="GameField"/> class position we want to visit</param>
+        /// <returns>Integer number equal to the number of bombs in the positions next to the given</returns>
         private int SurroundingBombsCount(int row, int col)
         {
             int surroundingBombsCount = 0;
@@ -174,6 +207,10 @@
             return surroundingBombsCount;
         }
         
+        /// <summary>
+        /// Creates a new game field instance
+        /// </summary>
+        /// <returns>Two dimensional array of <see cref="Position"/></returns>
         private Position[,] GenerateGameField()
         {
             Position[,] gameField = new Position[FieldRows, FieldColumns];

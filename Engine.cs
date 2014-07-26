@@ -286,14 +286,14 @@ namespace Minesweeper
             if (isVictory)
             {
                 this.Renderer.RenderGameWon();
-                this.IsGameWon = false;
             }
             else
             {
                 this.Renderer.RenderGameOver(this.CurrentScore);
-                this.IsGameOver = false;
             }
-            
+
+            this.IsGameOver = false;
+            this.IsGameWon = false;
             this.RecordResult();
             this.Renderer.RenderScoreBoard();
             this.IsNewGame = true;
@@ -389,12 +389,12 @@ namespace Minesweeper
         /// </summary>
         private void ReadCommand()
         {
-            Console.Write("Enter row and columnz: ");
+            Console.Write("Enter row and column: ");
             string currentCommand = Console.ReadLine();
 
             while (string.IsNullOrEmpty(currentCommand))
             {
-                Console.Write("Enter row and columnz: ");
+                Console.Write("Enter row and column: ");
                 currentCommand = Console.ReadLine();
             }
 
