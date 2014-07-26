@@ -137,6 +137,9 @@ namespace Minesweeper.Rendering
             Console.WriteLine("These coordinates are outside the field.");
         }
 
+        /// <summary>
+        /// Displays a message when the <see cref="Engine"/> class calls its SaveCommand() method.
+        /// </summary>
         public void RenderSaveDone()
         {
             Console.WriteLine("Your game is saved, you can restore it at any time by typing 'restore'.");
