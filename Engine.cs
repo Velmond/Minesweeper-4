@@ -261,6 +261,7 @@ namespace Minesweeper
         private void SaveCommand()
         {
             this.GameFieldSave.SavedField = this.GameField.Save();
+            this.Renderer.RenderSaveDone();
         }
 
         /// <summary>
@@ -297,6 +298,9 @@ namespace Minesweeper
             this.Renderer.RenderScoreBoard();
             this.IsNewGame = true;
             this.CurrentScore = 0;
+            Console.Write("What do you want to do now? Type 'restart' to start a new game, 'top' to view the scoreboard, 'exit' to leave the game or 'restore' to return to your last save: ");
+            var command = Console.ReadLine();
+            this.ExecuteCommand(command);
         }
 
         /// <summary>

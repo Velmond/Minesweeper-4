@@ -72,6 +72,8 @@ namespace Minesweeper.Rendering
         /// </summary>
         public void RenderGameField()
         {
+            Console.Clear();
+            this.WriteInstructions();
             Console.WriteLine(this.GameField.ToString());
         }
 
@@ -80,9 +82,14 @@ namespace Minesweeper.Rendering
         /// </summary>
         public void RenderNewGame()
         {
-            Console.WriteLine("Welcome to the game “Minesweeper”. Try to reveal all cells without mines. "
-                            + "Use 'top' to view the scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
+            this.WriteInstructions();
             this.RenderGameField();
+        }
+
+        private void WriteInstructions()
+        {
+            Console.WriteLine("Welcome to the game “Minesweeper”. Try to reveal all cells without mines. "
+                            + "Use 'top' to view the scoreboard, 'restart' to start a new game and 'exit' to quit the game. Type 'save' in order to save your game and 'restore' if you want to load a previous game.");
         }
 
         /// <summary>
@@ -128,6 +135,11 @@ namespace Minesweeper.Rendering
         public void RenderMessageInvalidCoordinates()
         {
             Console.WriteLine("These coordinates are outside the field.");
+        }
+
+        public void RenderSaveDone()
+        {
+            Console.WriteLine("Your game is saved, you can restore it at any time by typing 'restore'.");
         }
     }
 }
