@@ -7,10 +7,14 @@
 namespace Minesweeper
 {
     using System;
+
     using GameFactory;
+    using Scoring;
+    using Controls;
+
+    using Controls.Contracts;
     using Rendering.Contracts;
     using Saving.Contracts;
-    using Scoring;
     using Scoring.Contracts;
 
     /// <summary>
@@ -24,14 +28,11 @@ namespace Minesweeper
 
         private static Engine instance;
 
-        private GameField gameField;
         private ScoreBoard scoreBoard;
         private Creator creator;
+        private ISaveControls controlManager;
         private IGameFieldSave gameFieldSave;
         private IRenderer renderer;
-        private bool isGameOver;
-        private bool isNewGame;
-        private bool isGameOn;
         private bool isGameWon;
         private int currentScore;
         private int row;
@@ -45,14 +46,23 @@ namespace Minesweeper
             this.Creator = new GameCreator();
 
             this.GameFieldSave = this.Creator.CreateGameFieldSave();
-            this.IsGameOver = false;
-            this.IsNewGame = true;
             this.IsGameWon = false;
             this.CurrentScore = 0;
-            this.GameField = this.Creator.CreateGameField();
             this.ScoreBoard = this.Creator.CreateScoreBoard();
-            this.isGameOn = true;
-            this.Renderer = this.Creator.CreateRenderer(this.ScoreBoard, this.GameField);
+            this.Renderer = this.Creator.CreateRenderer(this.ScoreBoard, Creator.GameField);
+            this.ControlManager = new ControlManager(this.Renderer, this.ScoreBoard, this.Creator, this.GameFieldSave);
+        }
+
+        public ISaveControls ControlManager
+        {
+            get
+            {
+                return this.controlManager;
+            }
+            set
+            {
+                this.controlManager = value;
+            }
         }
 
         /// <summary>
@@ -68,22 +78,6 @@ namespace Minesweeper
                 }
 
                 return instance;
-            }
-        }
-
-        /// <summary>
-        /// Gets the current <see cref="GameField"/>
-        /// </summary>
-        public GameField GameField
-        {
-            get
-            {
-                return this.gameField;
-            }
-
-            private set
-            {
-                this.gameField = value;
             }
         }
 
@@ -116,38 +110,6 @@ namespace Minesweeper
             private set
             {
                 this.currentScore = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether new game must be started or not
-        /// </summary>
-        public bool IsNewGame
-        {
-            get
-            {
-                return this.isNewGame;
-            }
-
-            private set
-            {
-                this.isNewGame = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the current game is finished or not 
-        /// </summary>
-        public bool IsGameOver
-        {
-            get
-            {
-                return this.isGameOver;
-            }
-
-            private set
-            {
-                this.isGameOver = value;
             }
         }
 
@@ -208,13 +170,13 @@ namespace Minesweeper
         {
             do
             {
-                if (this.IsNewGame)
+                if (creator.IsNewGame)
                 {
                     this.NewGame();
                 }
 
                 this.ReadCommand();
-                if (this.IsGameOver)
+                if (this.Creator.IsGameOver)
                 {
                     this.GameOver(false);
                     continue;
@@ -225,55 +187,7 @@ namespace Minesweeper
                     this.GameOver(true);
                 }
             }
-            while (this.isGameOn);
-        }
-
-        /// <summary>
-        /// Displays the high scores on the console
-        /// </summary>
-        private void DisplayScoreBoardCommand()
-        {
-            this.renderer.RenderScoreBoard();
-        }
-
-        /// <summary>
-        /// Stars a new game
-        /// </summary>
-        private void RestartGameCommand()
-        {
-            this.ScoreBoard.Reset();
-            this.IsGameOver = false;
-            this.IsNewGame = true;
-        }
-
-        /// <summary>
-        /// Renders good bye message and exits the application
-        /// </summary>
-        private void ExitApplicationCommand()
-        {
-            this.Renderer.RenderApplicationExit();
-            this.isGameOn = false;
-        }
-
-        /// <summary>
-        /// Save the current state of the game field
-        /// </summary>
-        private void SaveCommand()
-        {
-            this.GameFieldSave.SavedField = this.GameField.Save();
-            this.Renderer.RenderSaveDone();
-        }
-
-        /// <summary>
-        /// Loads the saved state of the game field
-        /// </summary>
-        private void RestoreCommand()
-        {
-            if (this.GameFieldSave.SavedField != null)
-            {
-                this.GameField.RestoreFromSave(this.GameFieldSave.SavedField);
-                this.Renderer.RenderGameField();
-            }
+            while (this.Creator.IsGameOn);
         }
 
         /// <summary>
@@ -282,7 +196,7 @@ namespace Minesweeper
         /// <param name="isVictory">Shows if the game is won or lost</param>
         private void GameOver(bool isVictory)
         {
-            this.GameField.RevealField();
+            Creator.GameField.RevealField();
             if (isVictory)
             {
                 this.Renderer.RenderGameWon();
@@ -292,15 +206,15 @@ namespace Minesweeper
                 this.Renderer.RenderGameOver(this.CurrentScore);
             }
 
-            this.IsGameOver = false;
+            this.Creator.IsGameOver = false;
             this.IsGameWon = false;
             this.RecordResult();
             this.Renderer.RenderScoreBoard();
-            this.IsNewGame = true;
+            this.Creator.IsNewGame = true;
             this.CurrentScore = 0;
             Console.Write("What do you want to do now? Type 'restart' to start a new game, 'top' to view the scoreboard, 'exit' to leave the game or 'restore' to return to your last save: ");
             var command = Console.ReadLine();
-            this.ExecuteCommand(command);
+            this.controlManager.ExecuteCommand(command);
         }
 
         /// <summary>
@@ -318,45 +232,11 @@ namespace Minesweeper
         /// </summary>
         private void NewGame()
         {
-            this.GameField.SetNewField();
+            Creator.GameField.SetNewField();
 
             this.Renderer.RenderNewGame();
 
-            this.IsNewGame = false;
-        }
-
-        /// <summary>
-        /// Executes command entered by the player
-        /// </summary>
-        /// <param name="executeCommand">The command entered by the player</param>
-        private void ExecuteCommand(string executeCommand)
-        {
-            switch (executeCommand)
-            {
-                case "top":
-                    this.DisplayScoreBoardCommand();
-                    break;
-
-                case "restart":
-                    this.RestartGameCommand();
-                    break;
-
-                case "exit":
-                    this.ExitApplicationCommand();
-                    break;
-
-                case "save":
-                    this.SaveCommand();
-                    break;
-
-                case "restore":
-                    this.RestoreCommand();
-                    break;
-
-                default:
-                    this.Renderer.RenderMessageInvalidCommand();
-                    break;
-            }
+            this.Creator.IsNewGame = false;
         }
 
         /// <summary>
@@ -364,11 +244,11 @@ namespace Minesweeper
         /// </summary>
         private void Reveal()
         {
-            if (!this.GameField.Field[this.row, this.col].IsBomb)
+            if (!Creator.GameField.Field[this.row, this.col].IsBomb)
             {
-                if (this.GameField.Field[this.row, this.col].IsHidden)
+                if (Creator.GameField.Field[this.row, this.col].IsHidden)
                 {
-                    this.GameField.RevealPosition(this.row, this.col);
+                    Creator.GameField.RevealPosition(this.row, this.col);
                     this.CurrentScore++;
                 }
 
@@ -383,7 +263,7 @@ namespace Minesweeper
             }
             else
             {
-                this.IsGameOver = true;
+                this.Creator.IsGameOver = true;
             }
         }
 
@@ -407,8 +287,8 @@ namespace Minesweeper
             {
                 bool rowIsValid = int.TryParse(commandElements[0], out this.row);
                 bool colIsValid = int.TryParse(commandElements[1], out this.col);
-                bool rowIsInRange = (this.row < this.GameField.Field.GetLength(0)) && (this.row >= 0);
-                bool colIsInRange = (this.col < this.GameField.Field.GetLength(1)) && (this.col >= 0);
+                bool rowIsInRange = (this.row < Creator.GameField.Field.GetLength(0)) && (this.row >= 0);
+                bool colIsInRange = (this.col < Creator.GameField.Field.GetLength(1)) && (this.col >= 0);
 
                 if (rowIsValid && rowIsInRange && colIsValid && colIsInRange)
                 {
@@ -420,12 +300,12 @@ namespace Minesweeper
                 }
                 else
                 {
-                    this.ExecuteCommand(currentCommand);
+                    this.controlManager.ExecuteCommand(currentCommand);
                 }
             }
             else
             {
-                this.ExecuteCommand(currentCommand);
+                this.controlManager.ExecuteCommand(currentCommand);
             }
         }
     }

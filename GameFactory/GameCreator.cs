@@ -7,9 +7,13 @@
 namespace Minesweeper.GameFactory
 {
     using System;
+
+    using Controls;
     using Saving;
     using Scoring;
     using Rendering;
+
+    using Controls.Contracts;
     using Saving.Contracts;
     using Scoring.Contracts;
     using Rendering.Contracts;
@@ -19,6 +23,14 @@ namespace Minesweeper.GameFactory
     /// </summary>
     public class GameCreator : Creator
     {
+        public GameCreator()
+        {
+            this.IsGameOver = false;
+            this.IsNewGame = true;
+            this.IsGameOn = true;
+            this.GameField = this.CreateGameField();
+        }
+
         public override IGameFieldSave CreateGameFieldSave()
         {
             return new GameFieldSave();

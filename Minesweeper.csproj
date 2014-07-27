@@ -67,6 +67,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Contracts\IBasicControls.cs" />
+    <Compile Include="Controls\Contracts\ISaveControls.cs" />
+    <Compile Include="Controls\ControlManager.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="GameFactory\Creator.cs" />
     <Compile Include="GameFactory\GameCreator.cs" />
