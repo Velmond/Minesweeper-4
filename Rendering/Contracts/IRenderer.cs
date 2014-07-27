@@ -45,6 +45,10 @@ namespace Minesweeper.Rendering.Contracts
 
         void RenderMessageInvalidCoordinates();
 
-        void RenderSaveDone ();
+        void RenderCoordinatesRequest();
+
+        void RenderCommandRequest();
+
+        void RenderSaveDone();
     }
 }

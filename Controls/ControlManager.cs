@@ -12,13 +12,15 @@
         private IRenderer renderer;
         private ScoreBoard scoreBoard;
         private IGameFieldSave gameFieldSave;
+        private GameStateManager gameState;
 
-        public ControlManager(IRenderer renderer, ScoreBoard scoreBoard, Creator gameCreator, IGameFieldSave gameFieldSave)
+        public ControlManager(IRenderer renderer, ScoreBoard scoreBoard, Creator gameCreator, IGameFieldSave gameFieldSave, GameStateManager gameState)
         {
             this.Creator = gameCreator;
             this.Renderer = renderer;
             this.ScoreBoard = scoreBoard;
             this.GameFieldSave = gameFieldSave;
+            this.GameState = gameState;
         }
 
         public IGameFieldSave GameFieldSave
@@ -69,23 +71,29 @@
             }
         }
 
+        public GameStateManager GameState
+        {
+            get { return this.gameState; }
+            private set { this.gameState = value; }
+        }
+
         /// <summary>
         /// Save the current state of the game field
         /// </summary>
         public void SaveCommand()
         {
-            this.GameFieldSave.SavedField = Creator.GameField.Save();
+            this.GameFieldSave.SavedField = this.GameState.GameField.Save();
             this.Renderer.RenderSaveDone();
         }
 
         /// <summary>
         /// Loads the saved state of the game field
         /// </summary>
-        public void RestoreSaveCommand ()
+        public void RestoreSaveCommand()
         {
             if (this.GameFieldSave.SavedField != null)
             {
-                Creator.GameField.RestoreFromSave(this.GameFieldSave.SavedField);
+                this.GameState.GameField.RestoreFromSave(this.GameFieldSave.SavedField);
                 this.Renderer.RenderGameField();
             }
         }
@@ -130,7 +138,7 @@
         public void ExitApplicationCommand ()
         {
             this.Renderer.RenderApplicationExit();
-            this.Creator.IsGameOn = false;
+            this.GameState.IsGameOn = false;
         }
 
         /// <summary>
@@ -139,8 +147,8 @@
         public void RestartApplicationCommand ()
         {
             this.ScoreBoard.Reset();
-            this.Creator.IsGameOver = false;
-            this.Creator.IsNewGame = true;
+            this.GameState.IsGameOver = false;
+            this.GameState.IsNewGame = true;
         }
 
         /// <summary>

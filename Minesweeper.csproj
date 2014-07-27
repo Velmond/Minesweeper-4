@@ -74,6 +74,7 @@
     <Compile Include="GameFactory\Creator.cs" />
     <Compile Include="GameFactory\GameCreator.cs" />
     <Compile Include="GameField.cs" />
+    <Compile Include="GameStateManager.cs" />
     <Compile Include="Rendering\Contracts\IRenderer.cs" />
     <Compile Include="Rendering\Renderer.cs" />
     <Compile Include="Saving\Contracts\IGameFieldSave.cs" />
@@ -84,6 +85,8 @@
     <Compile Include="Position.cs" />
     <Compile Include="Scoring\ScoreBoard.cs" />
     <Compile Include="Scoring\ScoreRecord.cs" />
+    <Compile Include="UserInput\ConsoleInput.cs" />
+    <Compile Include="UserInput\Contracts\IUserInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

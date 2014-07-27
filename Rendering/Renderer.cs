@@ -144,5 +144,16 @@ namespace Minesweeper.Rendering
         {
             Console.WriteLine("Your game is saved, you can restore it at any time by typing 'restore'.");
         }
+
+
+        public void RenderCoordinatesRequest()
+        {
+            Console.Write("Enter row and column: ");
+        }
+
+        public void RenderCommandRequest()
+        {
+            Console.Write("What do you want to do now? Type 'restart' to start a new game, 'top' to view the scoreboard, 'exit' to leave the game or 'restore' to return to your last save: ");
+        }
     }
 }
