@@ -235,7 +235,7 @@ namespace Minesweeper
             this.IsGameWon = false;
             this.RecordResult();
             this.Renderer.RenderScoreBoard();
-            this.GameState.IsNewGame = false;
+            this.GameState.IsNewGame = true;
             this.CurrentScore = 0;
             this.Renderer.RenderCommandRequest();
             var command = this.Input.RequestCommand();
