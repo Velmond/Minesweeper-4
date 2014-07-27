@@ -1,25 +1,5 @@
-D:\Velmond\School\Telerik\06. High-Quality Programming Code\Teamwork - Team Minesweeper-4\Minesweeper\Minesweeper\Minesweeper-4\bin\Debug\Minesweeper.exe
-D:\Velmond\School\Telerik\06. High-Quality Programming Code\Teamwork - Team Minesweeper-4\Minesweeper\Minesweeper\Minesweeper-4\bin\Debug\Minesweeper.pdb
-D:\Velmond\School\Telerik\06. High-Quality Programming Code\Teamwork - Team Minesweeper-4\Minesweeper\Minesweeper\Minesweeper-4\obj\Debug\Minesweeper.csprojResolveAssemblyReference.cache
-D:\Velmond\School\Telerik\06. High-Quality Programming Code\Teamwork - Team Minesweeper-4\Minesweeper\Minesweeper\Minesweeper-4\obj\Debug\Minesweeper.exe
-D:\Velmond\School\Telerik\06. High-Quality Programming Code\Teamwork - Team Minesweeper-4\Minesweeper\Minesweeper\Minesweeper-4\obj\Debug\Minesweeper.pdb
-E:\КПК\obj\Debug\Minesweeper.exe
-E:\КПК\obj\Debug\Minesweeper.pdb
-E:\КПК\obj\Debug\Minesweeper.csprojResolveAssemblyReference.cache
-E:\КПК\bin\Debug\Minesweeper.exe
-E:\КПК\bin\Debug\Minesweeper.pdb
-C:\Users\Velmond\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.exe
-C:\Users\Velmond\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.pdb
-C:\Users\Velmond\Documents\GitHub\Minesweeper-4\bin\Debug\Minesweeper.exe
-C:\Users\Velmond\Documents\GitHub\Minesweeper-4\bin\Debug\Minesweeper.pdb
-C:\Users\Velmond\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.csprojResolveAssemblyReference.cache
 D:\My Stuff\Telerik Academy\OOP\Teamwork\Minesweeper-4\obj\Debug\Minesweeper.exe
 D:\My Stuff\Telerik Academy\OOP\Teamwork\Minesweeper-4\obj\Debug\Minesweeper.pdb
+D:\My Stuff\Telerik Academy\OOP\Teamwork\Minesweeper-4\obj\Debug\Minesweeper.csprojResolveAssemblyReference.cache
 D:\My Stuff\Telerik Academy\OOP\Teamwork\Minesweeper-4\bin\Debug\Minesweeper.exe
 D:\My Stuff\Telerik Academy\OOP\Teamwork\Minesweeper-4\bin\Debug\Minesweeper.pdb
-D:\My Stuff\Telerik Academy\OOP\Teamwork\Minesweeper-4\obj\Debug\Minesweeper.csprojResolveAssemblyReference.cache
-C:\Users\Stefan\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.exe
-C:\Users\Stefan\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.pdb
-C:\Users\Stefan\Documents\GitHub\Minesweeper-4\bin\Debug\Minesweeper.exe
-C:\Users\Stefan\Documents\GitHub\Minesweeper-4\bin\Debug\Minesweeper.pdb
-C:\Users\Stefan\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.csprojResolveAssemblyReference.cache
