@@ -6,14 +6,14 @@
 // ********************************
 namespace Minesweeper.GameFactory
 {
-    using System;
-    using Saving;
-    using Scoring;
+    using Minesweeper.Contracts;
     using Rendering;
-    using UserInput;
-    using Saving.Contracts;
-    using Scoring.Contracts;
     using Rendering.Contracts;
+    using Saving;
+    using Saving.Contracts;
+    using Scoring;
+    using Scoring.Contracts;
+    using UserInput;
     using UserInput.Contracts;
     
     /// <summary>
@@ -31,7 +31,7 @@ namespace Minesweeper.GameFactory
             return new ScoreRecord(name, score);
         }
 
-        public override IRenderer CreateRenderer(ScoreBoard scoreBoard, GameField gameField)
+        public override IRenderer CreateRenderer(IScoreBoard scoreBoard, IGameField gameField)
         {
             return new Renderer(scoreBoard, gameField);
         }
@@ -41,12 +41,12 @@ namespace Minesweeper.GameFactory
             return new ConsoleInput();
         }
 
-        public override GameField CreateGameField()
+        public override IGameField CreateGameField()
         {
             return new GameField();
         }
 
-        public override ScoreBoard CreateScoreBoard()
+        public override IScoreBoard CreateScoreBoard()
         {
             return new ScoreBoard();
         }

@@ -1,7 +1,7 @@
 ﻿namespace Minesweeper.Tests
 {
-    using Minesweeper.Rendering;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Minesweeper.Rendering;
     using Minesweeper.Scoring;
 
     [TestClass]

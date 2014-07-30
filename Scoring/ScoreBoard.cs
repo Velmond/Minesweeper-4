@@ -13,7 +13,7 @@ namespace Minesweeper.Scoring
     /// <summary>
     /// Stores the best high scores
     /// </summary>
-    public class ScoreBoard
+    public class ScoreBoard : IScoreBoard
     {
         private const int MaxNumberOfEntries = 6;
         private IList<IScoreRecord> highScores;
@@ -37,8 +37,15 @@ namespace Minesweeper.Scoring
 
         public IList<IScoreRecord> HighScores
         {
-            get { return this.highScores; }
-            set { this.highScores = value; }
+            get
+            {
+                return this.highScores;
+            }
+
+            set
+            {
+                this.highScores = value;
+            }
         }
 
         /// <summary>
@@ -57,13 +64,12 @@ namespace Minesweeper.Scoring
         {
             int lastHighScoreId = this.HighScores.Count - 1;
             
-            // If there aren't any high score, the current score is added directly.
             if (this.HighScores.Count == 0)
             {
                 this.HighScores.Add(currentScore);
             }
             else if (currentScore.PlayerScore > this.HighScores[lastHighScoreId].PlayerScore || this.HighScores.Count < MaxNumberOfEntries)
-            { // The second part of this 'if' is needed because otherwise if the first time the score is 10 and the following ones are below they will not be written in the scores
+            {
                 for (int i = 0; i < this.HighScores.Count; i++)
                 {
                     IScoreRecord iterationScore = this.HighScores[i];

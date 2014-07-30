@@ -6,7 +6,8 @@
 // ********************************
 namespace Minesweeper.Rendering.Contracts
 {
-    using Scoring;
+    using Minesweeper.Contracts;
+    using Minesweeper.Scoring.Contracts;
 
     /// <summary>
     /// Defines default rendering rules and behavior.
@@ -16,12 +17,12 @@ namespace Minesweeper.Rendering.Contracts
         /// <summary>
         /// Keeps reference to the current game session score board.
         /// </summary>
-        ScoreBoard ScoreBoard { get; }
+        IScoreBoard ScoreBoard { get; }
 
         /// <summary>
         /// Keeps reference to the current game session field.
         /// </summary>
-        GameField GameField { get; }
+        IGameField GameField { get; }
 
         void RenderScoreBoard();
 
@@ -39,7 +40,7 @@ namespace Minesweeper.Rendering.Contracts
 
         void RenderApplicationExit();
 
-        // Messages
+        //// Messages
 
         void RenderMessageInvalidCommand();
 

@@ -8,11 +8,9 @@ namespace Minesweeper
 {
     using System;
 
-    using GameFactory;
-    using Scoring;
     using Controls;
-
     using Controls.Contracts;
+    using GameFactory;
     using Rendering.Contracts;
     using Saving.Contracts;
     using Scoring.Contracts;
@@ -23,14 +21,12 @@ namespace Minesweeper
     /// </summary>
     public class Engine
     {
-        private const int ScoreToWin = (GameField.FieldColumns * GameField.FieldRows) - GameField.BombsCount;
-
         private const int FieldDimensions = 2;
 
         private static Engine instance;
 
         private GameStateManager gameState;
-        private ScoreBoard scoreBoard;
+        private IScoreBoard scoreBoard;
         private Creator creator;
         private ISaveControls controlManager;
         private IGameFieldSave gameFieldSave;
@@ -59,18 +55,6 @@ namespace Minesweeper
             this.ControlManager = new ControlManager(this.Renderer, this.ScoreBoard, this.Creator, this.GameFieldSave, this.GameState);
         }
 
-        public ISaveControls ControlManager
-        {
-            get
-            {
-                return this.controlManager;
-            }
-            set
-            {
-                this.controlManager = value;
-            }
-        }
-
         /// <summary>
         /// Gets the <see cref="Engine"/> and ensures only a single instance of the <see cref="Engine"/> class can be created
         /// </summary>
@@ -84,6 +68,19 @@ namespace Minesweeper
                 }
 
                 return instance;
+            }
+        }
+
+        public ISaveControls ControlManager
+        {
+            get
+            {
+                return this.controlManager;
+            }
+
+            set
+            {
+                this.controlManager = value;
             }
         }
 
@@ -122,7 +119,7 @@ namespace Minesweeper
         /// <summary>
         /// Gets <see cref="Scoring.ScoreBoard"/> with all the high scores for the game
         /// </summary>
-        public ScoreBoard ScoreBoard
+        public IScoreBoard ScoreBoard
         {
             get
             {
@@ -156,8 +153,15 @@ namespace Minesweeper
         /// </summary>
         public GameStateManager GameState
         {
-            get { return this.gameState; }
-            private set { this.gameState = value; }
+            get
+            {
+                return this.gameState;
+            }
+
+            private set
+            {
+                this.gameState = value;
+            }
         }
 
         /// <summary>
@@ -165,8 +169,15 @@ namespace Minesweeper
         /// </summary>
         public IUserInput Input
         {
-            get { return this.input; }
-            private set { this.input = value; }
+            get
+            {
+                return this.input;
+            }
+
+            private set
+            {
+                this.input = value;
+            }
         }
 
         /// <summary>
@@ -174,8 +185,15 @@ namespace Minesweeper
         /// </summary>
         public IRenderer Renderer
         {
-            get { return this.renderer; }
-            private set { this.renderer = value; }
+            get
+            {
+                return this.renderer;
+            }
+
+            private set
+            {
+                this.renderer = value;
+            }
         }
 
         /// <summary>
@@ -183,8 +201,15 @@ namespace Minesweeper
         /// </summary>
         public Creator Creator
         {
-            get { return this.creator; }
-            private set { this.creator = value; }
+            get
+            {
+                return this.creator;
+            }
+
+            private set
+            {
+                this.creator = value;
+            }
         }
 
         /// <summary>
@@ -200,6 +225,7 @@ namespace Minesweeper
                 }
 
                 this.ReadCommand();
+
                 if (this.GameState.IsGameOver)
                 {
                     this.GameOver(false);
@@ -277,7 +303,7 @@ namespace Minesweeper
                     this.CurrentScore++;
                 }
 
-                if (this.CurrentScore == ScoreToWin)
+                if (this.GameState.GameField.Revealed == GameField.MaxToReveal)
                 {
                     this.IsGameWon = true;
                 }
@@ -312,10 +338,9 @@ namespace Minesweeper
             {
                 bool rowIsValid = int.TryParse(commandElements[0], out this.row);
                 bool colIsValid = int.TryParse(commandElements[1], out this.col);
-                bool rowIsInRange = (this.row < this.GameState.GameField.Field.GetLength(0)) && (this.row >= 0);
-                bool colIsInRange = (this.col < this.GameState.GameField.Field.GetLength(1)) && (this.col >= 0);
+                bool isInRange = this.IsInRange(this.row, this.col);
 
-                if (rowIsValid && rowIsInRange && colIsValid && colIsInRange)
+                if (rowIsValid && colIsValid && isInRange)
                 {
                     this.Reveal();
                 }
@@ -332,6 +357,14 @@ namespace Minesweeper
             {
                 this.controlManager.ExecuteCommand(currentCommand);
             }
+        }
+
+        private bool IsInRange(int row, int col)
+        {
+            bool rowIsInRange = row >= 0 && row < this.GameState.GameField.Field.GetLength(0);
+            bool colIsInRange = col >= 0 && col < this.GameState.GameField.Field.GetLength(1);
+
+            return rowIsInRange && colIsInRange;
         }
     }
 }

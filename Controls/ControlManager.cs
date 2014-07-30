@@ -2,19 +2,20 @@
 {
     using Contracts;
     using GameFactory;
+    using Minesweeper.Scoring.Contracts;
+    using Rendering.Contracts;
     using Saving.Contracts;
     using Scoring;
-    using Rendering.Contracts;
 
     public class ControlManager : ISaveControls
     {
         private Creator creator;
         private IRenderer renderer;
-        private ScoreBoard scoreBoard;
+        private IScoreBoard scoreBoard;
         private IGameFieldSave gameFieldSave;
         private GameStateManager gameState;
 
-        public ControlManager(IRenderer renderer, ScoreBoard scoreBoard, Creator gameCreator, IGameFieldSave gameFieldSave, GameStateManager gameState)
+        public ControlManager(IRenderer renderer, IScoreBoard scoreBoard, Creator gameCreator, IGameFieldSave gameFieldSave, GameStateManager gameState)
         {
             this.Creator = gameCreator;
             this.Renderer = renderer;
@@ -29,6 +30,7 @@
             {
                 return this.gameFieldSave;
             }
+
             set
             {
                 this.gameFieldSave = value;
@@ -41,18 +43,20 @@
             {
                 return this.creator;
             }
+
             set
             {
                 this.creator = value;
             }
         }
 
-        public ScoreBoard ScoreBoard
+        public IScoreBoard ScoreBoard
         {
             get
             {
                 return this.scoreBoard;
             }
+
             set
             {
                 this.scoreBoard = value;
@@ -65,6 +69,7 @@
             {
                 return this.renderer;
             }
+
             set
             {
                 this.renderer = value;
@@ -102,7 +107,7 @@
         /// Executes command entered by the player
         /// </summary>
         /// <param name="executeCommand">The command entered by the player</param>
-        public void ExecuteCommand (string command)
+        public void ExecuteCommand(string command)
         {
             switch (command)
             {
@@ -135,7 +140,7 @@
         /// <summary>
         /// Renders good bye message and exits the application
         /// </summary>
-        public void ExitApplicationCommand ()
+        public void ExitApplicationCommand()
         {
             this.Renderer.RenderApplicationExit();
             this.GameState.IsGameOn = false;
@@ -144,7 +149,7 @@
         /// <summary>
         /// Stars a new game
         /// </summary>
-        public void RestartApplicationCommand ()
+        public void RestartApplicationCommand()
         {
             this.ScoreBoard.Reset();
             this.GameState.IsGameOver = false;
@@ -154,7 +159,7 @@
         /// <summary>
         /// Displays the high scores on the console
         /// </summary>
-        public void DisplayScoreBoardCommand ()
+        public void DisplayScoreBoardCommand()
         {
             this.renderer.RenderScoreBoard();
         }

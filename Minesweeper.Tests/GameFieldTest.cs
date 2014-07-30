@@ -45,7 +45,7 @@
         public void RevealFieldTest()
         {
             GameField gameField = new GameField();
-            // uses RevealPosition(...) which is already tested
+            //// uses RevealPosition(...) which is already tested
             gameField.RevealField();
 
             var expectedResult = true;

@@ -1,10 +1,11 @@
 ﻿namespace Minesweeper.Tests
 {
+    using System.Collections.Generic;
+    using System.Text;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Scoring;
     using Scoring.Contracts;
-    using System.Collections.Generic;
-    using System.Text;
 
     [TestClass]
     public class ScoreTests

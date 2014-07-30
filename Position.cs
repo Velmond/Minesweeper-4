@@ -11,6 +11,7 @@ namespace Minesweeper
     /// </summary>
     public class Position
     {
+        private const char DefaultValue = '?';
         private bool isBomb;
         private bool isHidden;
         private char value;
@@ -19,10 +20,8 @@ namespace Minesweeper
         /// Initializes a new instance of the <see cref="Position"/> class which is not a bomb
         /// </summary>
         public Position()
+            : this(DefaultValue, true, false)
         {
-            this.IsBomb = false;
-            this.IsHidden = true;
-            this.Value = '?';
         }
 
         /// <summary>
@@ -43,8 +42,15 @@ namespace Minesweeper
         /// </summary>
         public bool IsBomb
         {
-            get { return this.isBomb; }
-            private set { this.isBomb = value; }
+            get
+            {
+                return this.isBomb;
+            }
+
+            private set
+            {
+                this.isBomb = value;
+            }
         }
 
         /// <summary>
@@ -52,8 +58,15 @@ namespace Minesweeper
         /// </summary>
         public bool IsHidden
         {
-            get { return this.isHidden; }
-            private set { this.isHidden = value; }
+            get
+            {
+                return this.isHidden;
+            }
+
+            private set
+            {
+                this.isHidden = value;
+            }
         }
 
         /// <summary>
@@ -61,8 +74,15 @@ namespace Minesweeper
         /// </summary>
         public char Value
         {
-            get { return this.value; }
-            private set { this.value = value; }
+            get
+            {
+                return this.value;
+            }
+
+            private set
+            {
+                this.value = value;
+            }
         }
 
         /// <summary>
@@ -76,14 +96,14 @@ namespace Minesweeper
         /// <summary>
         /// Reveals the position value after the player visit it
         /// </summary>
-        /// <param name="hiddenValue">Char which will represent the value of the position when the player visit it</param>
-        public void Reveal(char hiddenValue)
+        /// <param name="value">Char which will represent the value of the position when the player visit it</param>
+        public void Reveal(char value)
         {
             // If position is not hidden it already has a value which should not be able to change
             if (this.IsHidden)
             {
                 this.IsHidden = false;
-                this.Value = hiddenValue;
+                this.Value = value;
             }
         }
     }

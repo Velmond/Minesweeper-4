@@ -7,11 +7,13 @@
 namespace Minesweeper.GameFactory
 {
     using System;
-    using Scoring;
-    using Saving.Contracts;
-    using Scoring.Contracts;
+
     using Rendering.Contracts;
+    using Saving.Contracts;
+    using Scoring;
+    using Scoring.Contracts;
     using UserInput.Contracts;
+    using Minesweeper.Contracts;
 
     /// <summary>
     /// Defines default abstract rules of the Creator's successors.
@@ -22,16 +24,12 @@ namespace Minesweeper.GameFactory
 
         public abstract IScoreRecord CreateScoreRecord(string name, int score);
 
-        public abstract IRenderer CreateRenderer(ScoreBoard scoreBoard, GameField gameField);
+        public abstract IRenderer CreateRenderer(IScoreBoard scoreBoard, IGameField gameField);
 
         public abstract IUserInput CreateUserInputRequester();
 
-        // Both GameField and ScoreBoard have concrete implementation
-        // since modification or changes in the structures of the classes
-        // is not expected in the long term.
+        public abstract IGameField CreateGameField();
 
-        public abstract GameField CreateGameField();
-
-        public abstract ScoreBoard CreateScoreBoard();
+        public abstract IScoreBoard CreateScoreBoard();
     }
 }

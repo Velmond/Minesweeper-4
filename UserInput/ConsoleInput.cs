@@ -21,13 +21,13 @@ namespace Minesweeper.UserInput
 
         public string RequestUserName()
         {
-            string name = String.Empty;
+            string name = string.Empty;
 
             do
             {
                 name = Console.ReadLine();
             }
-            while(name == String.Empty);
+            while (name == string.Empty);
 
             return name;
         }

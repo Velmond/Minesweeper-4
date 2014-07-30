@@ -8,3 +8,8 @@ C:\Users\Stefan\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.pdb
 C:\Users\Stefan\Documents\GitHub\Minesweeper-4\bin\Debug\Minesweeper.exe
 C:\Users\Stefan\Documents\GitHub\Minesweeper-4\bin\Debug\Minesweeper.pdb
 C:\Users\Stefan\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.csprojResolveAssemblyReference.cache
+C:\Users\Velmond\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.exe
+C:\Users\Velmond\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.pdb
+C:\Users\Velmond\Documents\GitHub\Minesweeper-4\bin\Debug\Minesweeper.exe
+C:\Users\Velmond\Documents\GitHub\Minesweeper-4\bin\Debug\Minesweeper.pdb
+C:\Users\Velmond\Documents\GitHub\Minesweeper-4\obj\Debug\Minesweeper.csprojResolveAssemblyReference.cache

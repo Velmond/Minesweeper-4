@@ -1,42 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Minesweeper.Engine">
-    <Position X="4" Y="1.25" Width="1.5" />
+    <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QoCAgAAAAKAAEAhAAhgIAYSCBAHQAAABUAOAABSEgAA=</HashCode>
+      <HashCode>QgAAgAAAgKAAAAgAAgAIAYQCFADQABgAUAKoAAQAoAA=</HashCode>
       <FileName>Engine.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Minesweeper.GameField">
-    <Position X="7.5" Y="1.25" Width="1.5" />
+    <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAEAgKAQAAAAAAAEAAAAAAAAAAAAAAABQAAgAgAAgAQ=</HashCode>
       <FileName>GameField.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Minesweeper.MinesweeperGame">
-    <Position X="5.75" Y="4.5" Width="1.5" />
+    <Position X="14.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>MinesweeperGame.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Minesweeper.Position">
-    <Position X="5.75" Y="1.25" Width="1.5" />
+    <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAQAAAAAAAAAAAAAAAAAAAAAAAAACAAAAJgAAAAUAA=</HashCode>
+      <HashCode>ABAQAAAAAAAAAAAAAAAAAAAAAABAACAAAAJgAAAAUAA=</HashCode>
       <FileName>Position.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Minesweeper.Scoring.ScoreBoard">
-    <Position X="7.5" Y="5.75" Width="1.5" />
+    <Position X="7.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAABAAEAAAAAAAAAAAAAAABAACAAAAAAAw=</HashCode>
       <FileName>Scoring\ScoreBoard.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Minesweeper.Scoring.ScoreRecord" BaseTypeListCollapsed="true">
-    <Position X="5.75" Y="7.25" Width="1.5" />
+    <Position X="7.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAACEAAEAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Scoring\ScoreRecord.cs</FileName>
@@ -44,14 +44,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Minesweeper.Saving.GameFieldMemento">
-    <Position X="11" Y="1.25" Width="1.5" />
+    <Position X="9.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAABAAAAAAAAgAA=</HashCode>
       <FileName>Saving\GameFieldMemento.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Minesweeper.Saving.GameFieldSave" BaseTypeListCollapsed="true">
-    <Position X="9.25" Y="2.5" Width="1.5" />
+    <Position X="9.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>Saving\GameFieldSave.cs</FileName>
@@ -59,45 +59,45 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Minesweeper.Rendering.Renderer" BaseTypeListCollapsed="true">
-    <Position X="11" Y="3.75" Width="1.5" />
+    <Position X="12.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAIAQAAAAAAAAAMAAAEGAAAABAIIAAAAgAAA=</HashCode>
+      <HashCode>AAAAAAgAAIAQAAAAAAAAAMAAAEGAAAABQIIAEAIgAAA=</HashCode>
       <FileName>Rendering\Renderer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Minesweeper.GameFactory.Creator">
-    <Position X="0.5" Y="1.25" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAIAAAAAAAAgAAAAAAAAAAAIAAAAAAIAAAAAAAAAA=</HashCode>
+      <HashCode>AAEAIAAAAAAAAgAAAAABAAAAAIAAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>GameFactory\Creator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Minesweeper.GameFactory.GameCreator">
-    <Position X="2.25" Y="1.25" Width="1.5" />
+    <Position X="0.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAIAAAAAAAAgAAAAAAAAAAAIAAAAAAIAAAAAAAAAA=</HashCode>
+      <HashCode>AAEAIAAAAAAAAgAAAAABAAAAAIAAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>GameFactory\GameCreator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="Minesweeper.Scoring.Contracts.IScoreRecord">
-    <Position X="5.75" Y="5.75" Width="1.5" />
+    <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Scoring\Contracts\IScoreRecord.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Minesweeper.Saving.Contracts.IGameFieldSave">
-    <Position X="9.25" Y="1.25" Width="1.5" />
+    <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>Saving\Contracts\IGameFieldSave.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Minesweeper.Rendering.Contracts.IRenderer">
-    <Position X="9.25" Y="3.75" Width="1.5" />
+    <Position X="11" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAIAQAAAAAAAAAEAAAEGAAAAAAIIAAAAgAAA=</HashCode>
+      <HashCode>AAAAAAgAAIAQAAAAAAAAAEAAAEGAAAAAAIIAEAIgAAA=</HashCode>
       <FileName>Rendering\Contracts\IRenderer.cs</FileName>
     </TypeIdentifier>
   </Interface>

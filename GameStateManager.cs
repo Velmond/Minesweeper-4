@@ -7,6 +7,7 @@
 namespace Minesweeper
 {
     using System;
+    using Minesweeper.Contracts;
 
     /// <summary>
     /// Keeps essential data for the game session.
@@ -19,7 +20,14 @@ namespace Minesweeper
         private bool isNewGame;
         private bool isGameOver;
         private bool isGameOn;
-        private GameField gameField;
+        private IGameField gameField;
+
+        private GameStateManager()
+        {
+            this.IsGameOver = false;
+            this.IsNewGame = true;
+            this.IsGameOn = true;
+        }
 
         public static GameStateManager Instance
         {
@@ -40,6 +48,7 @@ namespace Minesweeper
             {
                 return this.isGameOn;
             }
+
             set
             {
                 this.isGameOn = value;
@@ -55,6 +64,7 @@ namespace Minesweeper
             {
                 return this.isGameOver;
             }
+
             set
             {
                 this.isGameOver = value;
@@ -70,6 +80,7 @@ namespace Minesweeper
             {
                 return this.isNewGame;
             }
+
             set
             {
                 this.isNewGame = value;
@@ -79,23 +90,17 @@ namespace Minesweeper
         /// <summary>
         /// Keeps reference to Engine's GameField
         /// </summary>
-        public GameField GameField
+        public IGameField GameField
         {
             get
             {
                 return this.gameField;
             }
+
             set
             {
                 this.gameField = value;
             }
-        }
-
-        private GameStateManager()
-        {
-            this.IsGameOver = false;
-            this.IsNewGame = true;
-            this.IsGameOn = true;
         }
     }
 }

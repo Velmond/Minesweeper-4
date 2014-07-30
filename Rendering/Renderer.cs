@@ -7,23 +7,26 @@
 namespace Minesweeper.Rendering
 {
     using System;
+
     using Contracts;
+    using Minesweeper.Contracts;
     using Scoring;
+    using Minesweeper.Scoring.Contracts;
 
     /// <summary>
     /// Implements rendering for a console application.
     /// </summary>
     public class Renderer : IRenderer
     {
-        private ScoreBoard scoreBoard;
-        private GameField gameField;
+        private IScoreBoard scoreBoard;
+        private IGameField gameField;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Renderer"/> class with given score board and game field
         /// </summary>
         /// <param name="scoreBoard">Instance of <see cref="ScoreBoard"/> which will be rendered</param>
         /// <param name="gameField">Instance of <see cref="GameField"/> which will be rendered</param>
-        public Renderer(ScoreBoard scoreBoard, GameField gameField)
+        public Renderer(IScoreBoard scoreBoard, IGameField gameField)
         {
             this.ScoreBoard = scoreBoard;
             this.GameField = gameField;
@@ -32,12 +35,11 @@ namespace Minesweeper.Rendering
         /// <summary>
         /// Gets the value of the <see cref="ScoreBoard"/> which will be rendered
         /// </summary>
-        public ScoreBoard ScoreBoard
+        public IScoreBoard ScoreBoard
         {
             get
             {
                 return this.scoreBoard;
-                
             }
 
             private set
@@ -49,9 +51,12 @@ namespace Minesweeper.Rendering
         /// <summary>
         /// Gets the value of the <see cref="GameField"/> which will be rendered
         /// </summary>
-        public GameField GameField
+        public IGameField GameField
         {
-            get { return this.gameField; }
+            get
+            {
+                return this.gameField;
+            }
 
             private set
             {
@@ -86,12 +91,6 @@ namespace Minesweeper.Rendering
             this.RenderGameField();
         }
 
-        private void WriteInstructions()
-        {
-            Console.WriteLine("Welcome to the game “Minesweeper”. Try to reveal all cells without mines. "
-                            + "Use 'top' to view the scoreboard, 'restart' to start a new game and 'exit' to quit the game. Type 'save' in order to save your game and 'restore' if you want to load a previous game.");
-        }
-
         /// <summary>
         /// Displays the whole game field and congratulation message
         /// </summary>
@@ -109,8 +108,10 @@ namespace Minesweeper.Rendering
         public void RenderGameOver(int currentPlayerScore)
         {
             this.RenderGameField();
-            Console.Write("\nBooooom! You were killed by a mine. You revealed {0} cells without mines. " +
-                          "Please enter your name for the top scoreboard: ", currentPlayerScore);
+            Console.Write(
+                "\nBooooom! You were killed by a mine. You revealed {0} cells without mines." +
+                " Please enter your name for the top scoreboard: ",
+                currentPlayerScore);
         }
 
         /// <summary>
@@ -145,7 +146,6 @@ namespace Minesweeper.Rendering
             Console.WriteLine("Your game is saved, you can restore it at any time by typing 'restore'.");
         }
 
-
         public void RenderCoordinatesRequest()
         {
             Console.Write("Enter row and column: ");
@@ -154,6 +154,12 @@ namespace Minesweeper.Rendering
         public void RenderCommandRequest()
         {
             Console.Write("What do you want to do now? Type 'restart' to start a new game, 'top' to view the scoreboard, 'exit' to leave the game or 'restore' to return to your last save: ");
+        }
+
+        private void WriteInstructions()
+        {
+            Console.WriteLine("Welcome to the game “Minesweeper”. Try to reveal all cells without mines. "
+                            + "Use 'top' to view the scoreboard, 'restart' to start a new game and 'exit' to quit the game. Type 'save' in order to save your game and 'restore' if you want to load a previous game.");
         }
     }
 }

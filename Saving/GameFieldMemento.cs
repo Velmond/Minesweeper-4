@@ -17,14 +17,16 @@ namespace Minesweeper.Saving
         /// The array in which all the information about the game field is held.
         /// </summary>
         private Position[,] gameField;
+        private int revealed;
 
         /// <summary>
         /// Class for saving the game field information.
         /// </summary>
         /// <param name="gameField">The game field of which the information should be saved.</param>
-        public GameFieldMemento(Position[,] gameField)
+        public GameFieldMemento(Position[,] gameField, int revealed)
         {
             this.Field = gameField;
+            this.Revealed = revealed;
         }
 
         /// <summary>
@@ -45,6 +47,19 @@ namespace Minesweeper.Saving
                 }
 
                 this.gameField = CopyArray(value);
+            }
+        }
+
+        public int Revealed
+        {
+            get
+            {
+                return this.revealed;
+            }
+
+            private set
+            {
+                this.revealed = value;
             }
         }
 

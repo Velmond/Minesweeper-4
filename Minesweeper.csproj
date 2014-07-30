@@ -75,11 +75,13 @@
     <Compile Include="GameFactory\GameCreator.cs" />
     <Compile Include="GameField.cs" />
     <Compile Include="GameStateManager.cs" />
+    <Compile Include="Contracts\IGameField.cs" />
     <Compile Include="Rendering\Contracts\IRenderer.cs" />
     <Compile Include="Rendering\Renderer.cs" />
     <Compile Include="Saving\Contracts\IGameFieldSave.cs" />
     <Compile Include="Saving\GameFieldMemento.cs" />
     <Compile Include="Saving\GameFieldSave.cs" />
+    <Compile Include="Scoring\Contracts\IScoreBoard.cs" />
     <Compile Include="Scoring\Contracts\IScoreRecord.cs" />
     <Compile Include="MinesweeperGame.cs" />
     <Compile Include="Position.cs" />

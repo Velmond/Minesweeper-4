@@ -9,18 +9,22 @@ namespace Minesweeper
     using System;
     using System.Collections.Generic;
     using System.Text;
+
+    using Contracts;
     using Saving;
 
     /// <summary>
     /// Two dimensional array of <see cref="Position"/> class which represents the minesweeper game field
     /// </summary>
-    public class GameField
+    public class GameField : IGameField
     {
         public const int FieldRows = 5;
         public const int FieldColumns = 10;
         public const int BombsCount = 15;
+        public const int MaxToReveal = (FieldColumns * FieldRows) - BombsCount;
 
         private Position[,] gameField;
+        private int revealed;
 
         /// <summary>
         /// Initializes new instance of the <see cref="GameField"/> class.
@@ -35,16 +39,36 @@ namespace Minesweeper
         /// </summary>
         public Position[,] Field
         {
-            get { return this.gameField; }
-            private set { this.gameField = value; }
+            get
+            {
+                return this.gameField;
+            }
+
+            private set
+            {
+                this.gameField = value;
+            }
         }
 
+        public int Revealed
+        {
+            get
+            {
+                return this.revealed;
+            }
+
+            set
+            {
+                this.revealed = value;
+            }
+        }
         /// <summary>
         /// Prepares new game field for the player.
         /// </summary>
         public void SetNewField()
         {
             this.Field = this.GenerateGameField();
+            this.Revealed = 0;
         }
 
         /// <summary>
@@ -88,7 +112,7 @@ namespace Minesweeper
         /// <returns>A GameFieldMemento instantiation with the current Field</returns>
         public GameFieldMemento Save()
         {
-            return new GameFieldMemento(this.Field);
+            return new GameFieldMemento(this.Field, this.Revealed);
         }
 
         /// <summary>

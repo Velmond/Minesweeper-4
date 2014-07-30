@@ -37,6 +37,7 @@ namespace Minesweeper.Scoring
             {
                 return this.playerName;
             }
+
             set
             {
                 if (value == null)
@@ -44,7 +45,7 @@ namespace Minesweeper.Scoring
                     throw new ArgumentNullException("The player name cannot be null.");
                 }
 
-                if (value == String.Empty)
+                if (value == string.Empty)
                 {
                     throw new ArgumentException("The player name cannot be an empty string.");
                 }
@@ -62,6 +63,7 @@ namespace Minesweeper.Scoring
             {
                 return this.playerScore;
             }
+
             set
             {
                 if (value < 0)
@@ -79,7 +81,7 @@ namespace Minesweeper.Scoring
         /// <returns>Formated string containing the name and the score of the player</returns>
         public override string ToString()
         {
-            return String.Format("{0} --> {1}", this.PlayerName, this.PlayerScore);
+            return string.Format("{0} --> {1}", this.PlayerName, this.PlayerScore);
         }
     }
 }
