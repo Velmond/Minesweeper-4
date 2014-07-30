@@ -79,7 +79,7 @@ namespace Minesweeper
                 return this.controlManager;
             }
 
-            set
+            private set
             {
                 this.controlManager = value;
             }

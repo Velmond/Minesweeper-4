@@ -1,5 +1,6 @@
 ﻿namespace Minesweeper.Controls
 {
+    using Minesweeper.Controls.Commands;
     using Minesweeper.Controls.Contracts;
     using Minesweeper.GameFactory;
     using Minesweeper.Field.Contracts;
@@ -8,11 +9,13 @@
 
     public class ControlManager : ISaveControls
     {
+
         private Creator creator;
         private IRenderer renderer;
         private IScoreBoard scoreBoard;
         private IGameFieldSave gameFieldSave;
         private GameStateManager gameState;
+        private IRenderCommand renderCommand;
 
         public ControlManager(IRenderer renderer, IScoreBoard scoreBoard, Creator gameCreator, IGameFieldSave gameFieldSave, GameStateManager gameState)
         {
@@ -30,7 +33,7 @@
                 return this.gameFieldSave;
             }
 
-            set
+            private set
             {
                 this.gameFieldSave = value;
             }
@@ -43,7 +46,7 @@
                 return this.creator;
             }
 
-            set
+            private set
             {
                 this.creator = value;
             }
@@ -56,7 +59,7 @@
                 return this.scoreBoard;
             }
 
-            set
+            private set
             {
                 this.scoreBoard = value;
             }
@@ -69,7 +72,7 @@
                 return this.renderer;
             }
 
-            set
+            private set
             {
                 this.renderer = value;
             }
@@ -77,8 +80,28 @@
 
         public GameStateManager GameState
         {
-            get { return this.gameState; }
-            private set { this.gameState = value; }
+            get
+            {
+                return this.gameState;
+            }
+
+            private set
+            {
+                this.gameState = value;
+            }
+        }
+
+        public IRenderCommand RenderCommand
+        {
+            get
+            {
+                return this.renderCommand; 
+            }
+
+            private set
+            {
+                this.renderCommand = value;
+            }
         }
 
         /// <summary>
@@ -87,7 +110,6 @@
         public void SaveCommand()
         {
             this.GameFieldSave.SavedField = this.GameState.GameField.Save();
-            this.Renderer.RenderSaveDone();
         }
 
         /// <summary>
@@ -98,7 +120,6 @@
             if (this.GameFieldSave.SavedField != null)
             {
                 this.GameState.GameField.RestoreFromSave(this.GameFieldSave.SavedField);
-                this.Renderer.RenderGameField();
             }
         }
 
@@ -111,29 +132,35 @@
             switch (command)
             {
                 case "top":
-                    this.DisplayScoreBoardCommand();
+                    this.RenderCommand = new RenderScoreBoardCommand(this.Renderer);
                     break;
 
                 case "restart":
                     this.RestartApplicationCommand();
+                    this.RenderCommand = new RenderScoreBoardCommand(this.Renderer);
                     break;
 
                 case "exit":
                     this.ExitApplicationCommand();
+                    this.RenderCommand = new RenderExitApplicationCommand(this.Renderer);
                     break;
 
                 case "save":
                     this.SaveCommand();
+                    this.RenderCommand = new RenderSaveCommand(this.Renderer);
                     break;
 
                 case "restore":
                     this.RestoreSaveCommand();
+                    this.RenderCommand = new RenderRestoreSaveCommand(this.Renderer);
                     break;
 
                 default:
-                    this.Renderer.RenderMessageInvalidCommand();
+                    this.RenderCommand = new RenderMessageInvalidCommand(this.Renderer);
                     break;
             }
+
+            this.RenderCommand.Execute();
         }
 
         /// <summary>
@@ -141,7 +168,6 @@
         /// </summary>
         public void ExitApplicationCommand()
         {
-            this.Renderer.RenderApplicationExit();
             this.GameState.IsGameOn = false;
         }
 
@@ -153,14 +179,6 @@
             this.ScoreBoard.Reset();
             this.GameState.IsGameOver = false;
             this.GameState.IsNewGame = true;
-        }
-
-        /// <summary>
-        /// Displays the high scores on the console
-        /// </summary>
-        public void DisplayScoreBoardCommand()
-        {
-            this.renderer.RenderScoreBoard();
         }
     }
 }

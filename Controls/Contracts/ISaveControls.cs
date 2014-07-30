@@ -6,6 +6,6 @@
 
         void RestoreSaveCommand();
         
-        void DisplayScoreBoardCommand();
+        //void DisplayScoreBoardCommand();
     }
 }

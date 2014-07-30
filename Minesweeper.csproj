@@ -67,9 +67,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Commands\RenderCommand.cs" />
     <Compile Include="Controls\Contracts\IBasicControls.cs" />
+    <Compile Include="Controls\Contracts\IRenderCommand.cs" />
     <Compile Include="Controls\Contracts\ISaveControls.cs" />
     <Compile Include="Controls\ControlManager.cs" />
+    <Compile Include="Controls\Commands\RenderScoreBoardCommand.cs" />
+    <Compile Include="Controls\Commands\RenderExitApplicationCommand.cs" />
+    <Compile Include="Controls\Commands\RenderMessageInvalidCommand.cs" />
+    <Compile Include="Controls\Commands\RenderRestoreSaveCommand.cs" />
+    <Compile Include="Controls\Commands\RenderSaveCommand.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="GameFactory\Creator.cs" />
     <Compile Include="GameFactory\GameCreator.cs" />
