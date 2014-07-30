@@ -8,13 +8,14 @@ namespace Minesweeper
 {
     using System;
 
-    using Controls;
-    using Controls.Contracts;
-    using GameFactory;
-    using Rendering.Contracts;
-    using Saving.Contracts;
-    using Scoring.Contracts;
-    using UserInput.Contracts;
+    using Minesweeper.Controls;
+    using Minesweeper.Controls.Contracts;
+    using Minesweeper.GameFactory;
+    using Minesweeper.Field;
+    using Minesweeper.Field.Contracts;
+    using Minesweeper.Rendering.Contracts;
+    using Minesweeper.Scoring.Contracts;
+    using Minesweeper.UserInput.Contracts;
 
     /// <summary>
     /// Contains the main game logic and executes all necessary operations and commands

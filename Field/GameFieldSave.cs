@@ -4,9 +4,9 @@
 // </copyright>
 //
 // ********************************
-namespace Minesweeper.Saving
+namespace Minesweeper.Field
 {
-    using Contracts;
+    using Minesweeper.Field.Contracts;
 
     /// <summary>
     /// Class that contains the memento that contains the saved game field

@@ -9,9 +9,8 @@ namespace Minesweeper.Rendering
     using System;
 
     using Contracts;
-    using Minesweeper.Contracts;
-    using Scoring;
     using Minesweeper.Scoring.Contracts;
+    using Minesweeper.Field.Contracts;
 
     /// <summary>
     /// Implements rendering for a console application.

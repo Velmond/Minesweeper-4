@@ -7,7 +7,7 @@
 namespace Minesweeper
 {
     using System;
-    using Minesweeper.Contracts;
+    using Minesweeper.Field.Contracts;
 
     /// <summary>
     /// Keeps essential data for the game session.

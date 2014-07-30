@@ -1,7 +1,5 @@
-﻿namespace Minesweeper.Contracts
+﻿namespace Minesweeper.Field.Contracts
 {
-    using Minesweeper.Saving;
-
     public interface IGameField
     {
         Position[,] Field { get; }

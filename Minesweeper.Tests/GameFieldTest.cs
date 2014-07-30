@@ -4,7 +4,7 @@
     using System.Text;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    using Minesweeper.Saving;
+    using Minesweeper.Field;
 
     [TestClass]
     public class GameFieldTest

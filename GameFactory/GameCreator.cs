@@ -6,15 +6,14 @@
 // ********************************
 namespace Minesweeper.GameFactory
 {
-    using Minesweeper.Contracts;
-    using Rendering;
-    using Rendering.Contracts;
-    using Saving;
-    using Saving.Contracts;
-    using Scoring;
-    using Scoring.Contracts;
-    using UserInput;
-    using UserInput.Contracts;
+    using Minesweeper.Rendering;
+    using Minesweeper.Rendering.Contracts;
+    using Minesweeper.Field;
+    using Minesweeper.Field.Contracts;
+    using Minesweeper.Scoring;
+    using Minesweeper.Scoring.Contracts;
+    using Minesweeper.UserInput;
+    using Minesweeper.UserInput.Contracts;
     
     /// <summary>
     /// Implements Creator with concrete types for instantiating.

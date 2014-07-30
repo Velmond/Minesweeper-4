@@ -1,6 +1,7 @@
 ﻿namespace Minesweeper.Tests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Minesweeper.Field;
 
     [TestClass]
     public class PositionTests

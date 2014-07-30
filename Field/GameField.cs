@@ -4,14 +4,13 @@
 // </copyright>
 //
 // ********************************
-namespace Minesweeper
+namespace Minesweeper.Field
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
 
     using Contracts;
-    using Saving;
 
     /// <summary>
     /// Two dimensional array of <see cref="Position"/> class which represents the minesweeper game field

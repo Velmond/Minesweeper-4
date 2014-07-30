@@ -8,12 +8,10 @@ namespace Minesweeper.GameFactory
 {
     using System;
 
-    using Rendering.Contracts;
-    using Saving.Contracts;
-    using Scoring;
-    using Scoring.Contracts;
-    using UserInput.Contracts;
-    using Minesweeper.Contracts;
+    using Minesweeper.Field.Contracts;
+    using Minesweeper.Rendering.Contracts;
+    using Minesweeper.Scoring.Contracts;
+    using Minesweeper.UserInput.Contracts;
 
     /// <summary>
     /// Defines default abstract rules of the Creator's successors.

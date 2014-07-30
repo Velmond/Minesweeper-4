@@ -4,7 +4,7 @@
 // </copyright>
 //
 // ********************************
-namespace Minesweeper.Saving.Contracts
+namespace Minesweeper.Field.Contracts
 {
     public interface IGameFieldSave
     {

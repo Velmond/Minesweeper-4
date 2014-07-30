@@ -4,7 +4,7 @@
 // </copyright>
 //
 // ********************************
-namespace Minesweeper
+namespace Minesweeper.Field
 {
     /// <summary>
     /// Represents a single cell of the Minesweeper game field

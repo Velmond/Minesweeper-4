@@ -6,7 +6,7 @@
 // ********************************
 namespace Minesweeper.Rendering.Contracts
 {
-    using Minesweeper.Contracts;
+    using Minesweeper.Field.Contracts;
     using Minesweeper.Scoring.Contracts;
 
     /// <summary>

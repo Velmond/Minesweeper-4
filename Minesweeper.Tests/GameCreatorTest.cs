@@ -1,9 +1,10 @@
 ﻿namespace Minesweeper.Tests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Minesweeper.Field;
+    using Minesweeper.Field.Contracts;
     using Minesweeper.GameFactory;
     using Minesweeper.Rendering;
-    using Minesweeper.Saving.Contracts;
     using Minesweeper.Scoring;
     using Minesweeper.Scoring.Contracts;
 

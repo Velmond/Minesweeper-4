@@ -1,11 +1,10 @@
 ﻿namespace Minesweeper.Controls
 {
-    using Contracts;
-    using GameFactory;
+    using Minesweeper.Controls.Contracts;
+    using Minesweeper.GameFactory;
+    using Minesweeper.Field.Contracts;
+    using Minesweeper.Rendering.Contracts;
     using Minesweeper.Scoring.Contracts;
-    using Rendering.Contracts;
-    using Saving.Contracts;
-    using Scoring;
 
     public class ControlManager : ISaveControls
     {
