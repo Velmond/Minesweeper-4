@@ -14,7 +14,6 @@
         private IScoreBoard scoreBoard;
         private IGameFieldSave gameFieldSave;
         private GameStateManager gameState;
-        private IRenderCommand renderCommand;
 
         public ControlManager(IRenderer renderer, IScoreBoard scoreBoard, Creator gameCreator, IGameFieldSave gameFieldSave, GameStateManager gameState)
         {
@@ -90,19 +89,6 @@
             }
         }
 
-        public IRenderCommand RenderCommand
-        {
-            get
-            {
-                return this.renderCommand; 
-            }
-
-            private set
-            {
-                this.renderCommand = value;
-            }
-        }
-
         /// <summary>
         /// Save the current state of the game field
         /// </summary>
@@ -128,38 +114,39 @@
         /// <param name="executeCommand">The command entered by the player</param>
         public void ExecuteCommand(string command)
         {
+            IRenderCommand renderCommand;
             switch (command)
             {
                 case "top":
-                    this.RenderCommand = new RenderScoreBoardCommand(this.Renderer);
+                    renderCommand = new RenderScoreBoardCommand(this.Renderer);
                     break;
 
                 case "restart":
                     this.RestartApplicationCommand();
-                    this.RenderCommand = new RenderScoreBoardCommand(this.Renderer);
+                    renderCommand = new RenderScoreBoardCommand(this.Renderer);
                     break;
 
                 case "exit":
                     this.ExitApplicationCommand();
-                    this.RenderCommand = new RenderExitApplicationCommand(this.Renderer);
+                    renderCommand = new RenderExitApplicationCommand(this.Renderer);
                     break;
 
                 case "save":
                     this.SaveCommand();
-                    this.RenderCommand = new RenderSaveCommand(this.Renderer);
+                    renderCommand = new RenderSaveCommand(this.Renderer);
                     break;
 
                 case "restore":
                     this.RestoreSaveCommand();
-                    this.RenderCommand = new RenderRestoreSaveCommand(this.Renderer);
+                    renderCommand = new RenderRestoreSaveCommand(this.Renderer);
                     break;
 
                 default:
-                    this.RenderCommand = new RenderMessageInvalidCommand(this.Renderer);
+                    renderCommand = new RenderMessageInvalidCommand(this.Renderer);
                     break;
             }
 
-            this.RenderCommand.Execute();
+            renderCommand.Execute();
         }
 
         /// <summary>
