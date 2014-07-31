@@ -5,15 +5,22 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using Minesweeper.Field;
+    using Minesweeper.Field.Contracts;
 
     [TestClass]
     public class GameFieldTest
     {
+        private IGameField gameField;
+
+        [TestInitialize]
+        public void Init()
+        {
+            gameField = new GameField();
+        }
+
         [TestMethod]
         public void RevealPositionTest()
         {
-            GameField gameField = new GameField();
-
             for (int i = 0; i < GameField.FieldRows; i++)
             {
                 gameField.RevealPosition(i, i);
@@ -44,8 +51,6 @@
         [TestMethod]
         public void RevealFieldTest()
         {
-            GameField gameField = new GameField();
-            //// uses RevealPosition(...) which is already tested
             gameField.RevealField();
 
             var expectedResult = true;
@@ -65,7 +70,6 @@
         [TestMethod]
         public void NewFieldTest()
         {
-            GameField gameField = new GameField();
             gameField.RevealField();
             gameField.SetNewField();
 
@@ -86,7 +90,6 @@
         [TestMethod]
         public void SaveAndRestoreToHiddenTest()
         {
-            GameField gameField = new GameField();
             GameFieldMemento memento = gameField.Save();
             gameField.RevealField();
             gameField.RestoreFromSave(memento);
@@ -107,7 +110,6 @@
         [TestMethod]
         public void SaveAndRestoreToRevealedTest()
         {
-            GameField gameField = new GameField();
             gameField.RevealField();
             GameFieldMemento memento = gameField.Save();
             gameField.SetNewField();
@@ -129,7 +131,6 @@
         [TestMethod]
         public void ToStringNonRevealedTest()
         {
-            GameField gameField = new GameField();
             StringBuilder expectedBuilder = new StringBuilder();
             expectedBuilder.AppendLine();
             expectedBuilder.AppendLine("    0 1 2 3 4 5 6 7 8 9");
@@ -152,7 +153,6 @@
         [TestMethod]
         public void ToStringRevealedTest()
         {
-            GameField gameField = new GameField();
             gameField.RevealField();
             char[,] fieldChars = new char[GameField.FieldRows, GameField.FieldColumns];
 

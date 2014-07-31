@@ -1,104 +1,214 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Minesweeper.Engine">
-    <Position X="2.25" Y="0.5" Width="1.5" />
+  <Class Name="Minesweeper.Controls.Commands.RenderCommand" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QgAAgAAAgKAAAAgAAgAIAYQCFADQABgAUAKoAAQAoAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAACAAAAAgAA=</HashCode>
+      <FileName>Controls\Commands\RenderCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Minesweeper.Controls.Commands.RenderExitApplicationCommand" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Commands\RenderExitApplicationCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Controls.Commands.RenderMessageInvalidCommand" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Commands\RenderMessageInvalidCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Controls.Commands.RenderRestoreSaveCommand" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Commands\RenderRestoreSaveCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Controls.Commands.RenderSaveCommand" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Commands\RenderSaveCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Controls.Commands.RenderScoreBoardCommand" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Commands\RenderScoreBoardCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Controls.ControlManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoAAAAAAAAAAEAAACgAAAIEAAACQAAAAEAChAAAEoQA=</HashCode>
+      <FileName>Controls\ControlManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Minesweeper.Engine" Collapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAgAAAAKAAAAgAAgAIAYQCFADQABgAUAKoAAQAoAg=</HashCode>
       <FileName>Engine.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Minesweeper.GameField">
-    <Position X="5.75" Y="0.5" Width="1.5" />
+  <Class Name="Minesweeper.GameStateManager" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAEAgKAQAAAAAAAEAAAAAAAAAAAAAAABQAAgAgAAgAQ=</HashCode>
-      <FileName>GameField.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAACAAAFAAAABUAgAABCAAAA=</HashCode>
+      <FileName>GameStateManager.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Minesweeper.MinesweeperGame">
-    <Position X="14.5" Y="0.5" Width="1.5" />
+  <Class Name="Minesweeper.MinesweeperGame" Collapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>MinesweeperGame.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Minesweeper.Position">
-    <Position X="4" Y="0.5" Width="1.5" />
+  <Class Name="Minesweeper.Field.GameField" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAQAAAAAAAAAAAAAAAAAAAAAABAACAAAAJgAAAAUAA=</HashCode>
-      <FileName>Position.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Minesweeper.Scoring.ScoreBoard">
-    <Position X="7.5" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAABAAAAAAABAAEAAAAAAAAAAAAAAABAACAAAAAAAw=</HashCode>
-      <FileName>Scoring\ScoreBoard.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Minesweeper.Scoring.ScoreRecord" BaseTypeListCollapsed="true">
-    <Position X="7.5" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAACEAAEAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
-      <FileName>Scoring\ScoreRecord.cs</FileName>
+      <HashCode>BAEAgKAQAAAAAAAEAAAAAAAAAQAAAAEBQAAoAgAAgAQ=</HashCode>
+      <FileName>Field\GameField.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Minesweeper.Saving.GameFieldMemento">
-    <Position X="9.25" Y="3" Width="1.5" />
+  <Class Name="Minesweeper.Field.GameFieldMemento" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAABAAAAAAAAgAA=</HashCode>
-      <FileName>Saving\GameFieldMemento.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAQAAAAEBAAAAAAAAgAA=</HashCode>
+      <FileName>Field\GameFieldMemento.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Minesweeper.Saving.GameFieldSave" BaseTypeListCollapsed="true">
-    <Position X="9.25" Y="1.75" Width="1.5" />
+  <Class Name="Minesweeper.Field.GameFieldSave" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
-      <FileName>Saving\GameFieldSave.cs</FileName>
+      <FileName>Field\GameFieldSave.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Minesweeper.Rendering.Renderer" BaseTypeListCollapsed="true">
-    <Position X="12.75" Y="0.5" Width="1.5" />
+  <Class Name="Minesweeper.Field.Position" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAQAAAAAAAAAAAAAAAAAAAAAABAACAAAAJgAAAAUAA=</HashCode>
+      <FileName>Field\Position.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.GameFactory.Creator" Collapsed="true">
+    <Position X="3.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAIAAAAAAAAgAAAAABAAAAAIAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>GameFactory\Creator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.GameFactory.GameCreator" Collapsed="true">
+    <Position X="3.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAIAAAAAAAAgAAAAABAAAAAIAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>GameFactory\GameCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Minesweeper.Rendering.Renderer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgAAIAQAAAAAAAAAMAAAEGAAAABQIIAEAIgAAA=</HashCode>
       <FileName>Rendering\Renderer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Minesweeper.GameFactory.Creator">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Class Name="Minesweeper.Scoring.ScoreBoard" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAIAAAAAAAAgAAAAABAAAAAIAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>GameFactory\Creator.cs</FileName>
+      <HashCode>AAAABAAAAAAABAAEAAAAAAAAAAAAAAABAACAAAAAAAw=</HashCode>
+      <FileName>Scoring\ScoreBoard.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Minesweeper.GameFactory.GameCreator">
-    <Position X="0.5" Y="2.75" Width="1.5" />
+  <Class Name="Minesweeper.Scoring.ScoreRecord" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAIAAAAAAAAgAAAAABAAAAAIAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>GameFactory\GameCreator.cs</FileName>
+      <HashCode>AAEAAAAAAAAAAACEAAEAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Scoring\ScoreRecord.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Interface Name="Minesweeper.Scoring.Contracts.IScoreRecord">
-    <Position X="7.5" Y="0.5" Width="1.5" />
+  <Class Name="Minesweeper.UserInput.ConsoleInput" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserInput\ConsoleInput.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Minesweeper.Controls.Contracts.IBasicControls" Collapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAEAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Contracts\IBasicControls.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Minesweeper.Controls.Contracts.IRenderCommand" Collapsed="true">
+    <Position X="18.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Contracts\IRenderCommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Minesweeper.Controls.Contracts.ISaveControls" Collapsed="true">
+    <Position X="6" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Controls\Contracts\ISaveControls.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Minesweeper.Field.Contracts.IGameField" Collapsed="true">
+    <Position X="14.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAEAAIAQAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAgAQ=</HashCode>
+      <FileName>Field\Contracts\IGameField.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Minesweeper.Field.Contracts.IGameFieldSave" Collapsed="true">
+    <Position X="16.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Field\Contracts\IGameFieldSave.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Minesweeper.Rendering.Contracts.IRenderer" Collapsed="true">
+    <Position X="20" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAIAQAAAAAAAAAEAAAEGAAAAAAIIAEAIgAAA=</HashCode>
+      <FileName>Rendering\Contracts\IRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Minesweeper.Scoring.Contracts.IScoreBoard" Collapsed="true">
+    <Position X="14.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAQ=</HashCode>
+      <FileName>Scoring\Contracts\IScoreBoard.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Minesweeper.Scoring.Contracts.IScoreRecord" Collapsed="true">
+    <Position X="16.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Scoring\Contracts\IScoreRecord.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Minesweeper.Saving.Contracts.IGameFieldSave">
-    <Position X="9.25" Y="0.5" Width="1.5" />
+  <Interface Name="Minesweeper.UserInput.Contracts.IUserInput" Collapsed="true">
+    <Position X="18.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
-      <FileName>Saving\Contracts\IGameFieldSave.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Minesweeper.Rendering.Contracts.IRenderer">
-    <Position X="11" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAgAAIAQAAAAAAAAAEAAAEGAAAAAAIIAEAIgAAA=</HashCode>
-      <FileName>Rendering\Contracts\IRenderer.cs</FileName>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserInput\Contracts\IUserInput.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

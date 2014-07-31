@@ -56,11 +56,12 @@ namespace Minesweeper.Field
                 return this.revealed;
             }
 
-            set
+            private set
             {
                 this.revealed = value;
             }
         }
+
         /// <summary>
         /// Prepares new game field for the player.
         /// </summary>
@@ -102,6 +103,8 @@ namespace Minesweeper.Field
                     int surroundingBombsCount = this.SurroundingBombsCount(row, col);
                     this.Field[row, col].Reveal(surroundingBombsCount.ToString()[0]);
                 }
+
+                this.Revealed++;
             }
         }
 
@@ -121,6 +124,7 @@ namespace Minesweeper.Field
         public void RestoreFromSave(GameFieldMemento memento)
         {
             this.Field = memento.Field;
+            this.Revealed = memento.Revealed;
         }
 
         /// <summary>

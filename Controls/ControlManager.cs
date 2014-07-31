@@ -9,7 +9,6 @@
 
     public class ControlManager : ISaveControls
     {
-
         private Creator creator;
         private IRenderer renderer;
         private IScoreBoard scoreBoard;
@@ -176,7 +175,7 @@
         /// </summary>
         public void RestartApplicationCommand()
         {
-            this.ScoreBoard.Reset();
+            //this.ScoreBoard.Reset();
             this.GameState.IsGameOver = false;
             this.GameState.IsNewGame = true;
         }

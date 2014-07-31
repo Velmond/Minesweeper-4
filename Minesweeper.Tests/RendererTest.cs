@@ -11,12 +11,21 @@
     [TestClass]
     public class RendererTest
     {
+        private IGameField field;
+        private IScoreBoard scores;
+        private Renderer renderer;
+
+        [TestInitialize]
+        public void Init()
+        {
+            field = new GameField();
+            scores = new ScoreBoard();
+            renderer = new Renderer(scores, field);
+        }
+
         [TestMethod]
         public void RendererConstructorTest()
         {
-            IGameField field = new GameField();
-            IScoreBoard scores = new ScoreBoard();
-            Renderer renderer = new Renderer(scores, field);
             bool areEqual = renderer.GameField == field && renderer.ScoreBoard == scores;
             Assert.IsTrue(areEqual);
         }

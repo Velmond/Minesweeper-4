@@ -10,11 +10,19 @@
     [TestClass]
     public class ScoreTests
     {
+        private IScoreBoard scoreBoard;
+        private IScoreRecord recordToAdd;
+
+        [TestInitialize]
+        public void Init()
+        {
+            scoreBoard = new ScoreBoard();
+            recordToAdd = new ScoreRecord("name", 1);
+        }
+
         [TestMethod]
         public void AddScoreEntryToEmptyScoreBoardTest()
         {
-            ScoreBoard scoreBoard = new ScoreBoard();
-            IScoreRecord recordToAdd = new ScoreRecord("name", 1);
             scoreBoard.AddScore(recordToAdd);
 
             var expected = new List<IScoreRecord>() { recordToAdd };
@@ -25,14 +33,14 @@
         [TestMethod]
         public void AddScoreEntryToNonFullScoreBoardTest()
         {
-            ScoreBoard scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 4),
                 new ScoreRecord("name2", 2),
                 new ScoreRecord("name3", 1)
             });
 
-            IScoreRecord recordToAdd = new ScoreRecord("name", 3);
+            recordToAdd = new ScoreRecord("name", 3);
             scoreBoard.AddScore(recordToAdd);
 
             var expected = new List<IScoreRecord>()
@@ -51,7 +59,7 @@
         [TestMethod]
         public void AddScoreEntryToFullScoreBoardTest()
         {
-            ScoreBoard scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 7),
                 new ScoreRecord("name2", 6),
@@ -61,7 +69,7 @@
                 new ScoreRecord("name6", 1)
             });
 
-            IScoreRecord recordToAdd = new ScoreRecord("name", 5);
+            recordToAdd = new ScoreRecord("name", 5);
             scoreBoard.AddScore(recordToAdd);
 
             var expected = new List<IScoreRecord>()
@@ -82,7 +90,7 @@
         [TestMethod]
         public void AddLowestScoreEntryToFullScoreBoardTest()
         {
-            ScoreBoard scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 7),
                 new ScoreRecord("name2", 6),
@@ -92,7 +100,7 @@
                 new ScoreRecord("name6", 2)
             });
 
-            IScoreRecord recordToAdd = new ScoreRecord("name", 1);
+            recordToAdd = new ScoreRecord("name", 1);
             scoreBoard.AddScore(recordToAdd);
 
             var expected = new List<IScoreRecord>()
@@ -123,7 +131,7 @@
         [TestMethod]
         public void ToStringEmptyScoreBoardTest()
         {
-            ScoreBoard scoreBoard = new ScoreBoard();
+            scoreBoard = new ScoreBoard();
 
             var expectedBuilder = new StringBuilder();
             expectedBuilder.AppendLine("Scoreboard:");
@@ -137,7 +145,7 @@
         [TestMethod]
         public void ToStringNonEmptyScoreBoardTest()
         {
-            ScoreBoard scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 2),
                 new ScoreRecord("name2", 1)
@@ -157,7 +165,7 @@
         [TestMethod]
         public void ToStringFullScoreBoardTest()
         {
-            ScoreBoard scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 6),
                 new ScoreRecord("name2", 5),
@@ -185,7 +193,7 @@
         [TestMethod]
         public void ResetTest()
         {
-            ScoreBoard scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 7),
                 new ScoreRecord("name2", 6),
