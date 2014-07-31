@@ -63,6 +63,7 @@ namespace Minesweeper.Field
                 {
                     throw new ArgumentOutOfRangeException(string.Format("Game field's property Reveale must be in the range 0 - {0}", GameField.MaxToReveal));
                 }
+
                 this.revealed = value;
             }
         }

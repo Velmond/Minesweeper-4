@@ -7,12 +7,13 @@
 namespace Minesweeper
 {
     using System;
+    using System.Collections.Generic;
 
     using Minesweeper.Controls;
     using Minesweeper.Controls.Contracts;
-    using Minesweeper.GameFactory;
     using Minesweeper.Field;
     using Minesweeper.Field.Contracts;
+    using Minesweeper.GameFactory;
     using Minesweeper.Rendering.Contracts;
     using Minesweeper.Scoring.Contracts;
     using Minesweeper.UserInput.Contracts;
@@ -35,8 +36,6 @@ namespace Minesweeper
         private IUserInput input;
         private bool isGameWon;
         private int currentScore;
-        private int row;
-        private int col;
         
         /// <summary>
         /// Prevents a default instance of the <see cref="Engine"/> class from being created from outside
@@ -225,7 +224,9 @@ namespace Minesweeper
                     this.NewGame();
                 }
 
-                this.ReadCommand();
+                this.Renderer.RenderCoordinatesRequest();
+                var command = this.ReadCommand();
+                this.ExecuteCommand(command);
 
                 if (this.GameState.IsGameOver)
                 {
@@ -239,6 +240,62 @@ namespace Minesweeper
                 }
             }
             while (this.GameState.IsGameOn);
+        }
+
+        /// <summary>
+        /// Creates new game field and start new game
+        /// </summary>
+        private void NewGame()
+        {
+            this.GameState.GameField.SetNewField();
+
+            this.Renderer.RenderNewGame();
+
+            this.GameState.IsNewGame = false;
+        }
+
+        /// <summary>
+        /// Read the input from the console and validates the input
+        /// </summary>
+        private IList<string> ReadCommand()
+        {
+            string currentCommand = string.Empty;
+
+            do
+            {
+                this.Renderer.RenderCoordinatesRequest();
+                currentCommand = this.Input.RequestCommand();
+            }
+            while (string.IsNullOrEmpty(currentCommand));
+
+            IList<string> commandElements = currentCommand.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            return commandElements;
+        }
+
+        private void ExecuteCommand(IList<string> commandElements)
+        {
+            if (commandElements.Count == FieldDimensions)
+            {
+                int row, col;
+                bool rowIsValid = int.TryParse(commandElements[0], out row);
+                bool colIsValid = int.TryParse(commandElements[1], out col);
+                bool isInRange = this.IsInRange(row, col);
+
+                if (rowIsValid && colIsValid && isInRange)
+                {
+                    this.Reveal(row, col);
+                }
+                else
+                {
+                    // Will execute invalid command command
+                    this.ControlManager.ExecuteCommand(commandElements[0]);
+                }
+            }
+            else
+            {
+                this.ControlManager.ExecuteCommand(commandElements[0]);
+            }
         }
 
         /// <summary>
@@ -280,27 +337,15 @@ namespace Minesweeper
         }
 
         /// <summary>
-        /// Creates new game field and start new game
-        /// </summary>
-        private void NewGame()
-        {
-            this.GameState.GameField.SetNewField();
-
-            this.Renderer.RenderNewGame();
-
-            this.GameState.IsNewGame = false;
-        }
-
-        /// <summary>
         /// Reveals the game field cell entered by the player
         /// </summary>
-        private void Reveal()
+        private void Reveal(int row, int col)
         {
-            if (!this.GameState.GameField.Field[this.row, this.col].IsBomb)
+            if (!this.GameState.GameField.Field[row, col].IsBomb)
             {
-                if (this.GameState.GameField.Field[this.row, this.col].IsHidden)
+                if (this.GameState.GameField.Field[row, col].IsHidden)
                 {
-                    this.GameState.GameField.RevealPosition(this.row, this.col);
+                    this.GameState.GameField.RevealPosition(row, col);
                     this.CurrentScore++;
                 }
 
@@ -316,47 +361,6 @@ namespace Minesweeper
             else
             {
                 this.GameState.IsGameOver = true;
-            }
-        }
-
-        /// <summary>
-        /// Read the input from the console and validates the input
-        /// </summary>
-        private void ReadCommand()
-        {
-            this.Renderer.RenderCoordinatesRequest();
-            string currentCommand = this.Input.RequestCommand();
-
-            while (string.IsNullOrEmpty(currentCommand))
-            {
-                this.Renderer.RenderCoordinatesRequest();
-                currentCommand = this.Input.RequestCommand();
-            }
-
-            string[] commandElements = currentCommand.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-
-            if (commandElements.Length == FieldDimensions)
-            {
-                bool rowIsValid = int.TryParse(commandElements[0], out this.row);
-                bool colIsValid = int.TryParse(commandElements[1], out this.col);
-                bool isInRange = this.IsInRange(this.row, this.col);
-
-                if (rowIsValid && colIsValid && isInRange)
-                {
-                    this.Reveal();
-                }
-                else if (rowIsValid && colIsValid)
-                {
-                    this.Renderer.RenderMessageInvalidCoordinates();
-                }
-                else
-                {
-                    this.controlManager.ExecuteCommand(currentCommand);
-                }
-            }
-            else
-            {
-                this.controlManager.ExecuteCommand(currentCommand);
             }
         }
 

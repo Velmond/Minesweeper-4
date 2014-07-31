@@ -84,7 +84,7 @@
     <Compile Include="GameStateManager.cs" />
     <Compile Include="Field\Contracts\IGameField.cs" />
     <Compile Include="Rendering\Contracts\IRenderer.cs" />
-    <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Rendering\ConsoleRenderer.cs" />
     <Compile Include="Field\Contracts\IGameFieldSave.cs" />
     <Compile Include="Field\GameFieldMemento.cs" />
     <Compile Include="Field\GameFieldSave.cs" />

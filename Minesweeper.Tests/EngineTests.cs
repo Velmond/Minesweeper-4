@@ -1,11 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Minesweeper.Controls;
-using Minesweeper.GameFactory;
-using Minesweeper.Controls.Contracts;
-
-namespace Minesweeper.Tests
+﻿namespace Minesweeper.Tests
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class EngineTests
     {
@@ -14,19 +10,19 @@ namespace Minesweeper.Tests
         [TestInitialize]
         public void Inin()
         {
-            engine = Engine.Instance;
+            this.engine = Engine.Instance;
         }
 
         [TestMethod]
         public void DefaultValueSetForIsGameWonTest()
         {
-            Assert.AreEqual(false, engine.IsGameWon);
+            Assert.AreEqual(false, this.engine.IsGameWon);
         }
 
         [TestMethod]
         public void DefaultValueSetForCurrentScoreTest()
         {
-            Assert.AreEqual(0, engine.CurrentScore);
+            Assert.AreEqual(0, this.engine.CurrentScore);
         }
     }
 }

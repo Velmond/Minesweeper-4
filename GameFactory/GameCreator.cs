@@ -6,10 +6,10 @@
 // ********************************
 namespace Minesweeper.GameFactory
 {
-    using Minesweeper.Rendering;
-    using Minesweeper.Rendering.Contracts;
     using Minesweeper.Field;
     using Minesweeper.Field.Contracts;
+    using Minesweeper.Rendering;
+    using Minesweeper.Rendering.Contracts;
     using Minesweeper.Scoring;
     using Minesweeper.Scoring.Contracts;
     using Minesweeper.UserInput;
@@ -32,7 +32,7 @@ namespace Minesweeper.GameFactory
 
         public override IRenderer CreateRenderer(IScoreBoard scoreBoard, IGameField gameField)
         {
-            return new Renderer(scoreBoard, gameField);
+            return new ConsoleRenderer(scoreBoard, gameField);
         }
 
         public override IUserInput CreateUserInputRequester()

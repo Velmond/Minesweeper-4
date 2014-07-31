@@ -2,13 +2,13 @@
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Minesweeper.Controls;
+    using Minesweeper.Field;
+    using Minesweeper.Field.Contracts;
+    using Minesweeper.GameFactory;
     using Minesweeper.Rendering;
     using Minesweeper.Rendering.Contracts;
-    using Minesweeper.Field;
     using Minesweeper.Scoring;
     using Minesweeper.Scoring.Contracts;
-    using Minesweeper.GameFactory;
-    using Minesweeper.Field.Contracts;
 
     [TestClass]
     public class ControlManagerTests
@@ -23,63 +23,63 @@
         [TestInitialize]
         public void Inin()
         {
-            scoreBoard = new ScoreBoard();
-            gameCreator = new GameCreator();
-            gameFieldSave = new GameFieldSave();
-            renderer = new Renderer(scoreBoard, new GameField());
-            gameState = GameStateManager.Instance;
-            controlManager = new ControlManager(renderer, scoreBoard, gameCreator, gameFieldSave, gameState);
+            this.scoreBoard = new ScoreBoard();
+            this.gameCreator = new GameCreator();
+            this.gameFieldSave = new GameFieldSave();
+            this.renderer = new ConsoleRenderer(this.scoreBoard, new GameField());
+            this.gameState = GameStateManager.Instance;
+            this.controlManager = new ControlManager(this.renderer, this.scoreBoard, this.gameCreator, this.gameFieldSave, this.gameState);
         }
 
         [TestMethod]
         public void ScoreBoardShouldReturnScoreBoardThatWasGivenToItTest()
         {
-            Assert.AreEqual(scoreBoard, controlManager.ScoreBoard);
+            Assert.AreEqual(this.scoreBoard, this.controlManager.ScoreBoard);
         }
 
         [TestMethod]
         public void GameCreatorShouldReturnGameCreatorThatWasGivenToItTest()
         {
-            Assert.AreEqual(gameCreator, controlManager.Creator);
+            Assert.AreEqual(this.gameCreator, this.controlManager.Creator);
         }
 
         [TestMethod]
         public void GameFieldSaveShouldReturnGameFieldSaveThatWasGivenToItTest()
         {
-            Assert.AreEqual(gameFieldSave, controlManager.GameFieldSave);
+            Assert.AreEqual(this.gameFieldSave, this.controlManager.GameFieldSave);
         }
 
         [TestMethod]
         public void RendererSaveShouldReturnRendererSaveThatWasGivenToItTest()
         {
-            Assert.AreEqual(renderer, controlManager.Renderer);
+            Assert.AreEqual(this.renderer, this.controlManager.Renderer);
         }
 
         [TestMethod]
         public void GameStateSaveShouldReturnGameStateSaveThatWasGivenToItTest()
         {
-            Assert.AreEqual(gameState, controlManager.GameState);
+            Assert.AreEqual(this.gameState, this.controlManager.GameState);
         }
 
         [TestMethod]
         public void ExitApplicationCommandShouldSetIsGameOnToFalseTest()
         {
-            controlManager.ExitApplicationCommand();
-            Assert.AreEqual(false, controlManager.GameState.IsGameOn);
+            this.controlManager.ExitApplicationCommand();
+            Assert.AreEqual(false, this.controlManager.GameState.IsGameOn);
         }
 
         [TestMethod]
         public void RestartApplicationCommandSholdSetIsGameOverToFalseTest()
         {
-            controlManager.RestartApplicationCommand();
-            Assert.AreEqual(false, controlManager.GameState.IsGameOver);
+            this.controlManager.RestartApplicationCommand();
+            Assert.AreEqual(false, this.controlManager.GameState.IsGameOver);
         }
 
         [TestMethod]
         public void RestartApplicationCommandSholdSetIsNewGameToTrueTest()
         {
-            controlManager.RestartApplicationCommand();
-            Assert.AreEqual(true, controlManager.GameState.IsNewGame);
+            this.controlManager.RestartApplicationCommand();
+            Assert.AreEqual(true, this.controlManager.GameState.IsNewGame);
         }
     }
 }

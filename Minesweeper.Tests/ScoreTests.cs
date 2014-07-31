@@ -16,42 +16,42 @@
         [TestInitialize]
         public void Init()
         {
-            scoreBoard = new ScoreBoard();
-            recordToAdd = new ScoreRecord("name", 1);
+            this.scoreBoard = new ScoreBoard();
+            this.recordToAdd = new ScoreRecord("name", 1);
         }
 
         [TestMethod]
         public void AddScoreEntryToEmptyScoreBoardTest()
         {
-            scoreBoard.AddScore(recordToAdd);
+            this.scoreBoard.AddScore(this.recordToAdd);
 
-            var expected = new List<IScoreRecord>() { recordToAdd };
-            var actual = scoreBoard.HighScores;
+            var expected = new List<IScoreRecord>() { this.recordToAdd };
+            var actual = this.scoreBoard.HighScores;
             Assert.ReferenceEquals(expected, actual);
         }
 
         [TestMethod]
         public void AddScoreEntryToNonFullScoreBoardTest()
         {
-            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            this.scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 4),
                 new ScoreRecord("name2", 2),
                 new ScoreRecord("name3", 1)
             });
 
-            recordToAdd = new ScoreRecord("name", 3);
-            scoreBoard.AddScore(recordToAdd);
+            this.recordToAdd = new ScoreRecord("name", 3);
+            this.scoreBoard.AddScore(this.recordToAdd);
 
             var expected = new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 6),
-                recordToAdd,
+                this.recordToAdd,
                 new ScoreRecord("name2", 4),
                 new ScoreRecord("name3", 1)
             };
 
-            var actual = scoreBoard.HighScores;
+            var actual = this.scoreBoard.HighScores;
 
             Assert.ReferenceEquals(expected, actual);
         }
@@ -59,7 +59,7 @@
         [TestMethod]
         public void AddScoreEntryToFullScoreBoardTest()
         {
-            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            this.scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 7),
                 new ScoreRecord("name2", 6),
@@ -69,20 +69,20 @@
                 new ScoreRecord("name6", 1)
             });
 
-            recordToAdd = new ScoreRecord("name", 5);
-            scoreBoard.AddScore(recordToAdd);
+            this.recordToAdd = new ScoreRecord("name", 5);
+            this.scoreBoard.AddScore(this.recordToAdd);
 
             var expected = new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 7),
                 new ScoreRecord("name2", 6),
-                recordToAdd,
+                this.recordToAdd,
                 new ScoreRecord("name3", 4),
                 new ScoreRecord("name4", 3),
                 new ScoreRecord("name5", 2)
             };
 
-            var actual = scoreBoard.HighScores;
+            var actual = this.scoreBoard.HighScores;
 
             Assert.ReferenceEquals(expected, actual);
         }
@@ -90,7 +90,7 @@
         [TestMethod]
         public void AddLowestScoreEntryToFullScoreBoardTest()
         {
-            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            this.scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 7),
                 new ScoreRecord("name2", 6),
@@ -100,8 +100,8 @@
                 new ScoreRecord("name6", 2)
             });
 
-            recordToAdd = new ScoreRecord("name", 1);
-            scoreBoard.AddScore(recordToAdd);
+            this.recordToAdd = new ScoreRecord("name", 1);
+            this.scoreBoard.AddScore(this.recordToAdd);
 
             var expected = new List<IScoreRecord>()
             {
@@ -113,7 +113,7 @@
                 new ScoreRecord("name6", 2)
             };
 
-            var actual = scoreBoard.HighScores;
+            var actual = this.scoreBoard.HighScores;
 
             Assert.ReferenceEquals(expected, actual);
         }
@@ -131,21 +131,21 @@
         [TestMethod]
         public void ToStringEmptyScoreBoardTest()
         {
-            scoreBoard = new ScoreBoard();
+            this.scoreBoard = new ScoreBoard();
 
             var expectedBuilder = new StringBuilder();
             expectedBuilder.AppendLine("Scoreboard:");
             expectedBuilder.AppendLine("No records to display!");
 
             var expected = expectedBuilder.ToString();
-            var actual = scoreBoard.ToString();
+            var actual = this.scoreBoard.ToString();
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void ToStringNonEmptyScoreBoardTest()
         {
-            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            this.scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 2),
                 new ScoreRecord("name2", 1)
@@ -158,14 +158,14 @@
             expectedBuilder.AppendLine();
 
             var expected = expectedBuilder.ToString();
-            var actual = scoreBoard.ToString();
+            var actual = this.scoreBoard.ToString();
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void ToStringFullScoreBoardTest()
         {
-            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            this.scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 6),
                 new ScoreRecord("name2", 5),
@@ -186,14 +186,14 @@
             expectedBuilder.AppendLine();
 
             var expected = expectedBuilder.ToString();
-            var actual = scoreBoard.ToString();
+            var actual = this.scoreBoard.ToString();
             Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]
         public void ResetTest()
         {
-            scoreBoard = new ScoreBoard(new List<IScoreRecord>()
+            this.scoreBoard = new ScoreBoard(new List<IScoreRecord>()
             {
                 new ScoreRecord("name1", 7),
                 new ScoreRecord("name2", 6),
@@ -203,10 +203,10 @@
                 new ScoreRecord("name6", 2)
             });
 
-            scoreBoard.Reset();
+            this.scoreBoard.Reset();
 
             var expected = new List<IScoreRecord>();
-            var actual = scoreBoard.HighScores;
+            var actual = this.scoreBoard.HighScores;
             Assert.ReferenceEquals(expected, actual);
         }
     }

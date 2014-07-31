@@ -175,7 +175,7 @@
         /// </summary>
         public void RestartApplicationCommand()
         {
-            //this.ScoreBoard.Reset();
+            ////this.ScoreBoard.Reset();
             this.GameState.IsGameOver = false;
             this.GameState.IsNewGame = true;
         }

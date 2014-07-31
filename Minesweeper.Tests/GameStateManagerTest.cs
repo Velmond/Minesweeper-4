@@ -16,61 +16,61 @@
         [TestMethod]
         public void IsGameOnDefaultValueTest()
         {
-            Assert.AreEqual(true, gameState.IsGameOn);
+            Assert.AreEqual(true, this.gameState.IsGameOn);
         }
 
         [TestMethod]
         public void IsGameOverDefaultValueTest()
         {
-            Assert.AreEqual(false, gameState.IsGameOver);
+            Assert.AreEqual(false, this.gameState.IsGameOver);
         }
 
         [TestMethod]
         public void IsNewGameDefaultValueTest()
         {
-            Assert.AreEqual(true, gameState.IsNewGame);
+            Assert.AreEqual(true, this.gameState.IsNewGame);
         }
 
         [TestMethod]
         public void IsGameOnSetToTrueShouldKeepTrueAsValueTest()
         {
-            gameState.IsGameOver = true;
-            Assert.AreEqual(true, gameState.IsGameOn);
+            this.gameState.IsGameOver = true;
+            Assert.AreEqual(true, this.gameState.IsGameOn);
         }
 
         [TestMethod]
         public void IsGameOverSetToTrueShouldKeepTrueAsValueTest()
         {
-            gameState.IsGameOver = true;
-            Assert.AreEqual(true, gameState.IsGameOver);
+            this.gameState.IsGameOver = true;
+            Assert.AreEqual(true, this.gameState.IsGameOver);
         }
 
         [TestMethod]
         public void IsNewGameSetToTrueShouldKeepTrueAsValueTest()
         {
-            gameState.IsGameOver = true;
-            Assert.AreEqual(true, gameState.IsNewGame);
+            this.gameState.IsGameOver = true;
+            Assert.AreEqual(true, this.gameState.IsNewGame);
         }
 
         [TestMethod]
         public void IsGameOnSetToFalseShouldKeepFalseAsValueTest()
         {
-            gameState.IsGameOver = false;
-            Assert.AreEqual(false, gameState.IsGameOver);
+            this.gameState.IsGameOver = false;
+            Assert.AreEqual(false, this.gameState.IsGameOver);
         }
 
         [TestMethod]
         public void IsGameOverSetToFalseShouldKeepFalseAsValueTest()
         {
-            gameState.IsGameOver = false;
-            Assert.AreEqual(false, gameState.IsGameOver);
+            this.gameState.IsGameOver = false;
+            Assert.AreEqual(false, this.gameState.IsGameOver);
         }
 
         [TestMethod]
         public void IsNewGameSetToFalseShouldKeepFalseAsValueTest()
         {
-            gameState.IsGameOver = false;
-            Assert.AreEqual(false, gameState.IsGameOver);
+            this.gameState.IsGameOver = false;
+            Assert.AreEqual(false, this.gameState.IsGameOver);
         }
     }
 }

@@ -9,23 +9,23 @@ namespace Minesweeper.Rendering
     using System;
 
     using Contracts;
-    using Minesweeper.Scoring.Contracts;
     using Minesweeper.Field.Contracts;
+    using Minesweeper.Scoring.Contracts;
 
     /// <summary>
     /// Implements rendering for a console application.
     /// </summary>
-    public class Renderer : IRenderer
+    public class ConsoleRenderer : IRenderer
     {
         private IScoreBoard scoreBoard;
         private IGameField gameField;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Renderer"/> class with given score board and game field
+        /// Initializes a new instance of the <see cref="ConsoleRenderer"/> class with given score board and game field
         /// </summary>
         /// <param name="scoreBoard">Instance of <see cref="ScoreBoard"/> which will be rendered</param>
         /// <param name="gameField">Instance of <see cref="GameField"/> which will be rendered</param>
-        public Renderer(IScoreBoard scoreBoard, IGameField gameField)
+        public ConsoleRenderer(IScoreBoard scoreBoard, IGameField gameField)
         {
             this.ScoreBoard = scoreBoard;
             this.GameField = gameField;

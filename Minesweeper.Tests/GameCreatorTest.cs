@@ -16,12 +16,13 @@
         [TestInitialize]
         public void Init()
         {
-            creator = new GameCreator();
+            this.creator = new GameCreator();
         }
+
         [TestMethod]
         public void CreateScoreBoardTest()
         {
-            var received = creator.CreateScoreBoard();
+            var received = this.creator.CreateScoreBoard();
 
             Assert.IsInstanceOfType(received, typeof(ScoreBoard));
         }
@@ -29,7 +30,7 @@
         [TestMethod]
         public void CreateGameFieldSaveTest()
         {
-            var received = creator.CreateGameFieldSave();
+            var received = this.creator.CreateGameFieldSave();
 
             Assert.IsInstanceOfType(received, typeof(IGameFieldSave));
         }
@@ -39,7 +40,7 @@
         {
             string name = "Joe";
             int score = 8;
-            var received = creator.CreateScoreRecord(name, score);
+            var received = this.creator.CreateScoreRecord(name, score);
 
             Assert.IsInstanceOfType(received, typeof(IScoreRecord));
         }
@@ -49,7 +50,7 @@
         {
             string name = "Joe";
             int score = 8;
-            IScoreRecord received = creator.CreateScoreRecord(name, score);
+            IScoreRecord received = this.creator.CreateScoreRecord(name, score);
 
             Assert.AreEqual(name, received.PlayerName);
         }
@@ -59,7 +60,7 @@
         {
             string name = "Joe";
             int score = 8;
-            IScoreRecord received = creator.CreateScoreRecord(name, score);
+            IScoreRecord received = this.creator.CreateScoreRecord(name, score);
 
             Assert.AreEqual(score, received.PlayerScore);
         }
@@ -67,15 +68,15 @@
         [TestMethod]
         public void CreateRendererTest()
         {
-            var received = creator.CreateRenderer(new ScoreBoard(), new GameField());
+            var received = this.creator.CreateRenderer(new ScoreBoard(), new GameField());
 
-            Assert.IsInstanceOfType(received, typeof(Renderer));
+            Assert.IsInstanceOfType(received, typeof(ConsoleRenderer));
         }
 
         [TestMethod]
         public void CreateGameFieldTest()
         {
-            var received = creator.CreateGameField();
+            var received = this.creator.CreateGameField();
 
             Assert.IsInstanceOfType(received, typeof(GameField));
         }

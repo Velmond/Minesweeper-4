@@ -15,7 +15,7 @@
         [TestInitialize]
         public void Init()
         {
-            gameField = new GameField();
+            this.gameField = new GameField();
         }
 
         [TestMethod]
@@ -23,7 +23,7 @@
         {
             for (int i = 0; i < GameField.FieldRows; i++)
             {
-                gameField.RevealPosition(i, i);
+                this.gameField.RevealPosition(i, i);
             }
 
             var expectedResult = true;
@@ -32,7 +32,7 @@
             {
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
-                    bool isHidden = this.IsPositionHidden(gameField.Field[row, col]);
+                    bool isHidden = this.IsPositionHidden(this.gameField.Field[row, col]);
 
                     if (row != col)
                     {
@@ -51,7 +51,7 @@
         [TestMethod]
         public void RevealFieldTest()
         {
-            gameField.RevealField();
+            this.gameField.RevealField();
 
             var expectedResult = true;
 
@@ -59,7 +59,7 @@
             {
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
-                    bool isHidden = this.IsPositionHidden(gameField.Field[row, col]);
+                    bool isHidden = this.IsPositionHidden(this.gameField.Field[row, col]);
                     expectedResult = expectedResult && !isHidden;
                 }
             }
@@ -70,8 +70,8 @@
         [TestMethod]
         public void NewFieldTest()
         {
-            gameField.RevealField();
-            gameField.SetNewField();
+            this.gameField.RevealField();
+            this.gameField.SetNewField();
 
             var expectedResult = true;
 
@@ -79,7 +79,7 @@
             {
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
-                    bool isHidden = this.IsPositionHidden(gameField.Field[row, col]);
+                    bool isHidden = this.IsPositionHidden(this.gameField.Field[row, col]);
                     expectedResult = expectedResult && isHidden;
                 }
             }
@@ -90,16 +90,16 @@
         [TestMethod]
         public void SaveAndRestoreToHiddenTest()
         {
-            GameFieldMemento memento = gameField.Save();
-            gameField.RevealField();
-            gameField.RestoreFromSave(memento);
+            GameFieldMemento memento = this.gameField.Save();
+            this.gameField.RevealField();
+            this.gameField.RestoreFromSave(memento);
             bool expectedResult = true;
 
             for (int row = 0; row < GameField.FieldRows; row++)
             {
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
-                    bool isHidden = this.IsPositionHidden(gameField.Field[row, col]);
+                    bool isHidden = this.IsPositionHidden(this.gameField.Field[row, col]);
                     expectedResult = expectedResult && isHidden;
                 }
             }
@@ -110,17 +110,17 @@
         [TestMethod]
         public void SaveAndRestoreToRevealedTest()
         {
-            gameField.RevealField();
-            GameFieldMemento memento = gameField.Save();
-            gameField.SetNewField();
-            gameField.RestoreFromSave(memento);
+            this.gameField.RevealField();
+            GameFieldMemento memento = this.gameField.Save();
+            this.gameField.SetNewField();
+            this.gameField.RestoreFromSave(memento);
             bool expectedResult = true;
 
             for (int row = 0; row < GameField.FieldRows; row++)
             {
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
-                    bool isHidden = this.IsPositionHidden(gameField.Field[row, col]);
+                    bool isHidden = this.IsPositionHidden(this.gameField.Field[row, col]);
                     expectedResult = expectedResult && !isHidden;
                 }
             }
@@ -145,7 +145,7 @@
             expectedBuilder.AppendLine();
 
             string expected = expectedBuilder.ToString();
-            string actual = gameField.ToString();
+            string actual = this.gameField.ToString();
 
             Assert.AreEqual(expected, actual);
         }
@@ -153,7 +153,7 @@
         [TestMethod]
         public void ToStringRevealedTest()
         {
-            gameField.RevealField();
+            this.gameField.RevealField();
             char[,] fieldChars = new char[GameField.FieldRows, GameField.FieldColumns];
 
             for (int row = 0; row < GameField.FieldRows; row++)
@@ -161,12 +161,12 @@
                 for (int col = 0; col < GameField.FieldColumns; col++)
                 {
                     // Just in case check if the value has not been changed and is still set to '?'
-                    if (gameField.Field[row, col].Value == '?')
+                    if (this.gameField.Field[row, col].Value == '?')
                     {
                         throw new Exception("Position should be revealed with value different than '?'.");
                     }
 
-                    fieldChars[row, col] = gameField.Field[row, col].Value;
+                    fieldChars[row, col] = this.gameField.Field[row, col].Value;
                 }
             }
 
@@ -192,7 +192,7 @@
             expectedBuilder.AppendLine();
 
             string expected = expectedBuilder.ToString();
-            string actual = gameField.ToString();
+            string actual = this.gameField.ToString();
 
             Assert.AreEqual(expected, actual);
         }
