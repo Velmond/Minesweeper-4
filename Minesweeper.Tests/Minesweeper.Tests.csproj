@@ -62,8 +62,8 @@
     <Compile Include="ControlManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Minesweeper.csproj">
-      <Project>{b20e8dfd-5f12-4358-849d-1f25806e9052}</Project>
+    <ProjectReference Include="..\Minesweeper\Minesweeper.csproj">
+      <Project>{e1960d50-a2fb-4f76-8182-94c32c24abff}</Project>
       <Name>Minesweeper</Name>
     </ProjectReference>
   </ItemGroup>
